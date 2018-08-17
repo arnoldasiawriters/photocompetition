@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
     <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" />
-    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="css/app.css" />
 
     <!-- Include javascript libraries -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -27,12 +27,23 @@
     <script type="text/javascript" src="https://ghiden.github.io/angucomplete-alt/js/libs/angucomplete-alt.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.SPServices/2014.02/jquery.SPServices.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
-    <script type="textavascript" src="app.js"></script>
+
+    <!-- Include javascript application files -->
+    <script type="text/javascript" src="common/services/utils.js"></script>
+    <script type="text/javascript" src="common/directives/customdirectives.js"></script>
+    <script type="text/javascript" src="app/photocompetition/upload/uploads.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
 </head>
 
 <body>
     <div class="container-fluid" ng-app="PhotoCompetitionApp">
-        
+        <div id="notification-area">
+            
+        </div>
+
+        <div id="photocompapp" ng-view="">
+
+        </div>
     </div>
 </body>
 

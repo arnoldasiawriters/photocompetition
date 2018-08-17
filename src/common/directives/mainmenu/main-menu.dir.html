@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-md-10">
+        <div class="btn-group btn-group-justified pull-left">
+            <a href="{{menuItem.url}}" class="btn btn-sm btn-info {{menuItem.class}}" 
+               ng-repeat="menuItem in menuItems">
+                <i class="fa {{menuItem.icon}}"></i>
+                {{menuItem.title | uppercase}}
+            </a>
+        </div>
+    </div>
+</div>

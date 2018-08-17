@@ -1,4 +1,9 @@
-<div ng-controller="UploadController as uploads">
-    <main-menu active="uploads"></main-menu>
-    
+<div ng-controller="UploadsController as uploads">
+    <main-menu menu-items="uploads.menuItems"></main-menu>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <page-title page-title="uploads.pageTitle"></page-title>
+        </div>
+        <div class="panel-body">Panel Content</div>
+    </div>
 </div>
