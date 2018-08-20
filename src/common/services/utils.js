@@ -23,6 +23,6 @@
 
             _.set(_.find(menuitems, { menuId: activeMenu }), "class", "active");
             return menuitems;
-        }
+        };
     }
 })();

@@ -1,9 +1,76 @@
 <div ng-controller="UploadsController as uploads">
-    <main-menu menu-items="uploads.menuItems"></main-menu>
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <page-title page-title="uploads.pageTitle"></page-title>
-        </div>
-        <div class="panel-body">Panel Content</div>
+    <div class="margin-top">
+        <main-menu menu-items="uploads.menuItems"></main-menu>
     </div>
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="panel panel-info">
+                <div class="panel-heading margin-top">
+                    <page-title page-title="uploads.pageTitle"></page-title>
+                </div>
+                <div class="panel-body">
+                    <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+                    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+                    <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+                    <div class="bootstrap-iso">
+                        <div class="container-fluid">
+                            <form method="post">
+                                <div class="form-group ">
+                                    <label class="control-label requiredField" for="select">
+                                        Competition Name:<span class="asteriskField">*</span>
+                                    </label>
+                                    <select class="select form-control" id="select" name="select">
+                                        <option value="First Choice">First Choice</option>
+                                        <option value="Second Choice">Second Choice</option>
+                                        <option value="Third Choice">Third Choice</option>
+                                    </select>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label requiredField" for="select1">
+                                        Competition Year:<span class="asteriskField">*</span>
+                                    </label>
+                                    <select class="select form-control" id="select1" name="select1">
+                                        <option value="First Choice">First Choice</option>
+                                        <option value="Second Choice">Second Choice</option>
+                                        <option value="Third Choice">Third Choice</option>
+                                    </select>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label requiredField" for="select2">
+                                        Photo Category:<span class="asteriskField">*</span>
+                                    </label>
+                                    <select class="select form-control" id="select2" name="select2">
+                                        <option value="First Choice">First Choice</option>
+                                        <option value="Second Choice">Second Choice</option>
+                                        <option value="Third Choice">Third Choice</option>
+                                    </select>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label " for="textarea">Photo Description:</label>
+                                    <textarea class="form-control" cols="40" id="textarea" name="textarea" rows="5"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="btn btn-info btn-block btn-flat" for="selectphotos">
+                                        Click here to Select Photo
+                                        <input custom-on-change="uploads.uploadedPhoto" class="hide" id="selectphotos" type="file" accept="image/*" />
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <img ng-src="{{uploadedPhotoHref}}"  id="uploadedPhotoHref">
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-2 col-md-offset-10">
+                                        <button ng-click="uploads.submit()" class="btn btn-info btn-flat btn-block pull-right" name="submit" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
