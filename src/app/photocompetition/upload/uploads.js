@@ -3,7 +3,8 @@
     /**
      * UploadsController provides view model for Uploads
      */
-    angular.module('uploads', ['services.utilities'])
+    angular
+        .module('uploads', ['services.utilities'])
         .controller('UploadsController', UploadsController);
 
     UploadsController.$inject = ['$scope', '$window', 'UtilitiesService', 'growl'];
@@ -25,9 +26,11 @@
         };
 
         uploads.submit = function () {
-            growl.success('Your photo has been submitted successfully!', { title: 'Success Transaction', onclose: function(){
-                $window.location.reload();
-            }});
+            growl.success('Your photo has been submitted successfully!', {
+                title: 'Success Transaction', onclose: function () {
+                    $window.location.reload();
+                }
+            });
         };
     }
 })();

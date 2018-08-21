@@ -16,10 +16,10 @@
          */
         utils.menuItems = function (activeMenu) {
             var menuitems = [{ menuId: 1, title: "Upload", class: "", url: "#addUploads", icon: "fa-upload" },
-            { menuId: 2, title: "Selection", class: "", url: "", icon: "fa-search" },
-            { menuId: 3, title: "Voting", class: "", url: "", icon: "fa-edit" },
-            { menuId: 4, title: "Results", class: "", url: "", icon: "fa-align-justify" },
-            { menuId: 5, title: "Administration", class: "", url: "", icon: "fa-wrench" }];
+            { menuId: 2, title: "Selection", class: "", url: "#addSelection", icon: "fa-search" },
+            { menuId: 3, title: "Voting", class: "", url: "#addVoting", icon: "fa-edit" },
+            { menuId: 4, title: "Results", class: "", url: "#addResults", icon: "fa-align-justify" },
+            { menuId: 5, title: "Administration", class: "", url: "#addAdministration", icon: "fa-wrench" }];
 
             _.set(_.find(menuitems, { menuId: activeMenu }), "class", "active");
             return menuitems;
