@@ -2,14 +2,22 @@
     'use strict';
 
     angular
-    .module('selection',['services.utilities'])
-    .controller('SelectionController', SelectionController)
+        .module('selection', ['services.utilities', 'resources.selection'])
+        .controller('SelectionController', SelectionController)
 
-    SelectionController.$inject = ['UtilitiesService', 'growl'];
+    SelectionController.$inject = ['UtilitiesService', 'growl', 'SelectionService'];
 
-    function SelectionController(UtilitiesService, growl) {
+    function SelectionController(UtilitiesService, growl, SelectionService) {
         var selection = this;
         selection.menuItems = UtilitiesService.menuItems(2);
         selection.pageTitle = "BARAZA PHOTO COMPETITION - PHOTO SELECTION";
+        selection.imagePaths = SelectionService.getSelectionImages();
+        selection.submit = function () {
+            growl.success('Your photo has been submitted successfully!', {
+                title: 'Success Transaction', onclose: function () {
+                    $window.location.reload();
+                }
+            });
+        };       
     }
 })();

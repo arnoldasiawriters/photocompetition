@@ -5,7 +5,7 @@
      */
     angular
         .module('PhotoCompetitionApp', ['ngRoute', 'customdirectives', 'angular-growl', 'uploads', 'selection',
-            'voting', 'results', 'administration'])
+            'voting', 'results', 'administration', 'angular-flexslider'])
         .config(['growlProvider', GrowlProvider])
         .config(['$routeProvider', RouteProvider]);
 
@@ -40,5 +40,7 @@
     GrowlProvider.$inject = ['growlProvider'];
     function GrowlProvider(growlProvider) {
         growlProvider.globalTimeToLive(5000);
+        growlProvider.globalDisableCountDown(true);
     }
 })();
+
