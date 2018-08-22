@@ -4,8 +4,8 @@
     angular
         .module('resources.administration', [])
         .service('AdministrationService', AdministrationService);
-
-    function AdministrationService() {
-        var administration = this;
+AdministrationService.$inject = ['CategoriesService'];
+    function AdministrationService(CategoriesService) {
+        var admin = this;
     }
 })();

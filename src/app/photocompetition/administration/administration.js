@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('administration', ['services.utilities'])
+        .module('administration', ['services.utilities', 'admindirectives'])
         .controller('AdministrationController', AdministrationController);
 
     AdministrationController.$inject = ['UtilitiesService', 'growl'];

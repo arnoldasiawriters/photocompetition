@@ -5,7 +5,7 @@
      */
     angular
         .module('PhotoCompetitionApp', ['ngRoute', 'customdirectives', 'angular-growl', 'uploads', 'selection',
-            'voting', 'results', 'administration', 'angular-flexslider'])
+            'voting', 'results', 'administration', 'competitions', 'angular-flexslider', 'directives.dirPagination'])
         .config(['growlProvider', GrowlProvider])
         .config(['$routeProvider', RouteProvider]);
 
@@ -31,6 +31,10 @@
             .when('/addAdministration', {
                 templateUrl: 'app/photocompetition/administration/administration-add.tpl.html',
                 controller: 'AdministrationController'
+            })
+            .when('/listCompetitions', {
+                templateUrl: 'app/photocompetition/administration/competitions/competitions-list.tpl.html',
+                controller: 'CompetitionsController'
             })
             .otherwise({
                 redirectTo: '/addUploads'

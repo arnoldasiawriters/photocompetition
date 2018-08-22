@@ -44,11 +44,9 @@
                                                 <div class="titleHeader">PHOTO CATEGORIES</div>
                                             </div>
                                             <div class="panel-body">
-                                                <div class="btn btn-info btn-block btn-flat">CATEGORY 1</div>
-                                                <div class="btn btn-info btn-block btn-flat">CATEGORY 2</div>
-                                                <div class="btn btn-info btn-block btn-flat">CATEGORY 3</div>
-                                                <div class="btn btn-info btn-block btn-flat">CATEGORY 4</div>
-                                                <div class="btn btn-info btn-block btn-flat">CATEGORY 5</div>
+                                                <div class="btn btn-info btn-block btn-flat" ng-repeat="category in results.categories">
+                                                    {{category | uppercase}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
