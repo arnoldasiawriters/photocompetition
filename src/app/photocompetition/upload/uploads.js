@@ -27,7 +27,7 @@
 
         uploads.submit = function () {
             growl.success('Your photo has been submitted successfully!', {
-                title: 'Success Transaction', onclose: function () {
+                title: 'Successfull Transaction', onclose: function () {
                     $window.location.reload();
                 }
             });
