@@ -43,3 +43,6 @@
     opacity: 1;
     cursor: default;
 }
+.flexslider {
+    margin: 0px !important;
+}

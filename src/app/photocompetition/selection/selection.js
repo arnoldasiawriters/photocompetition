@@ -13,7 +13,7 @@
         selection.pageTitle = "BARAZA PHOTO COMPETITION - PHOTO SELECTION";
         selection.imagePaths = SelectionService.getSelectionImages();
         selection.submit = function () {
-            growl.success('Your photo has been submitted successfully!', {
+            growl.success('Your selection has been submitted successfully!', {
                 title: 'Success Transaction', onclose: function () {
                     $window.location.reload();
                 }
