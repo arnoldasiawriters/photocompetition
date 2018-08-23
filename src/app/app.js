@@ -5,7 +5,8 @@
      */
     angular
         .module('PhotoCompetitionApp', ['ngRoute', 'customdirectives', 'angular-growl', 'uploads', 'selection',
-            'voting', 'results', 'administration', 'competitions', 'angular-flexslider', 'directives.dirPagination'])
+            'voting', 'results', 'categories', 'competitions', 'periods','parameters', 'angular-flexslider', 
+            'directives.dirPagination', 'ui.bootstrap', 'ui.bootstrap.dialogs'])
         .config(['growlProvider', GrowlProvider])
         .config(['$routeProvider', RouteProvider]);
 
@@ -28,13 +29,25 @@
                 templateUrl: 'app/photocompetition/results/results-add.tpl.html',
                 controller: 'ResultsController'
             })
-            .when('/addAdministration', {
-                templateUrl: 'app/photocompetition/administration/administration-add.tpl.html',
-                controller: 'AdministrationController'
-            })
             .when('/listCompetitions', {
                 templateUrl: 'app/photocompetition/administration/competitions/competitions-list.tpl.html',
                 controller: 'CompetitionsController'
+            })
+            .when('/listCategories', {
+                templateUrl: 'app/photocompetition/administration/categories/categories-list.tpl.html',
+                controller: 'CategoriesController'
+            })
+            .when('/addCategory', {
+                templateUrl: 'app/photocompetition/administration/categories/categories-add.tpl.html',
+                controller: 'CategoriesController'
+            })
+            .when('/listPeriods', {
+                templateUrl: 'app/photocompetition/administration/periods/periods-list.tpl.html',
+                controller: 'PeriodsController'
+            })
+            .when('/editParameters', {
+                templateUrl: 'app/photocompetition/administration/parameters/parameters-edit.tpl.html',
+                controller: 'ParametersController'
             })
             .otherwise({
                 redirectTo: '/addUploads'

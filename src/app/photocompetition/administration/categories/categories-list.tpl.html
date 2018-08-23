@@ -1,13 +1,13 @@
-<div ng-controller="CompetitionsController as competitions">
+<div ng-controller="CategoriesController as categories">
     <div class="margin-top">
-        <main-menu menu-items="competitions.menuItems"></main-menu>
+        <main-menu menu-items="categories.menuItems"></main-menu>
     </div>
 
     <div class="row">
         <div class="col-md-10">
             <div class="panel panel-info">
                 <div class="panel-heading margin-top">
-                    <page-title page-title="competitions.pageTitle"></page-title>
+                    <page-title page-title="categories.pageTitle"></page-title>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -15,21 +15,31 @@
                             <admin-menu></admin-menu>
                         </div>
                         <div class="col-md-9">
-                            <add-button btn-add-href="competitions.btnAddHref"></add-button>
+                                <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <a ng-click="categories.addCategory();" class="btn btn-sm btn-success">
+                                                <i class="fa fa-plus-circle"></i>
+                                                Add
+                                            </a>
+                                        </div>
+                                    </div>
+                                <!-- <add-button btn-add-href="categories.btnAddHref"></add-button> -->
                             <div class="col-md-12 margin-top">
                                 <table class="table table-bordered table-condensed table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Competition Name</th>
+                                            <th>Category Name</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr dir-paginate="competition in competitions.competitions | itemsPerPage: 10">
+                                        <tr dir-paginate="category in categories.categories | itemsPerPage: 10">
                                             <td>{{$index+1}}.</td>
-                                            <td>{{competition}}</td>
-                                            <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                                            <td>{{category}}</td>
+                                            <td>
+                                                <a href="#">Edit</a> | <a href="#">Delete</a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

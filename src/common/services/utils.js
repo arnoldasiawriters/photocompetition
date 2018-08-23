@@ -19,7 +19,7 @@
             { menuId: 2, title: "Selection", class: "", url: "#addSelection", icon: "fa-search" },
             { menuId: 3, title: "Voting", class: "", url: "#addVoting", icon: "fa-edit" },
             { menuId: 4, title: "Results", class: "", url: "#addResults", icon: "fa-align-justify" },
-            { menuId: 5, title: "Administration", class: "", url: "#addAdministration", icon: "fa-wrench" }];
+            { menuId: 5, title: "Administration", class: "", url: "#listCategories", icon: "fa-wrench" }];
 
             _.set(_.find(menuitems, { menuId: activeMenu }), "class", "active");
             return menuitems;

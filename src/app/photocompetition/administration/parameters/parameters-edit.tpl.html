@@ -1,0 +1,49 @@
+<div ng-controller="ParametersController as parameters">
+    <div class="margin-top">
+        <main-menu menu-items="parameters.menuItems"></main-menu>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="panel panel-info">
+                <div class="panel-heading margin-top">
+                    <page-title page-title="parameters.pageTitle"></page-title>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <admin-menu></admin-menu>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="col-md-12">
+                                <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+                                <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+                                <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+                                <div class="bootstrap-iso">
+                                    <div class="container-fluid">
+                                        <div class="panel panel-info">
+                                            <div class="panel-body">
+                                                <form method="post">
+
+                                                    <div class="form-group" ng-repeat="parameter in parameters.parameters">
+                                                        <label class="control-label requiredField">
+                                                            {{parameter.title}}:<span class="asteriskField">*</span>
+                                                        </label>
+                                                        <input class="form-control" type="number">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button ng-click="parameters.submit()" class="btn btn-info pull-right" name="submit" type="submit">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
