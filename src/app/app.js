@@ -41,6 +41,10 @@
                 templateUrl: 'app/photocompetition/administration/categories/categories-add.tpl.html',
                 controller: 'CategoriesController'
             })
+            .when('/editCategory/:id', {
+                templateUrl: 'app/photocompetition/administration/categories/categories-edit.tpl.html',
+                controller: 'CategoriesController'
+            })
             .when('/listPeriods', {
                 templateUrl: 'app/photocompetition/administration/periods/periods-list.tpl.html',
                 controller: 'PeriodsController'
