@@ -77,6 +77,7 @@
                         return dataWrapper || {};
                     }
                 }
+                
             });//end of modal.open
             return modal.result;
         }

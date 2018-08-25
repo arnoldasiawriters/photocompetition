@@ -5,8 +5,8 @@
     .module('voting', ['services.utilities', 'resources.voting'])
     .controller('VotingController', VotingController);
 
-    VotingController.$inject = ['UtilitiesService','growl', 'VotingService'];
-    function VotingController(UtilitiesService, growl, VotingService) {
+    VotingController.$inject = ['UtilitiesService','growl', 'VotingService', '$window'];
+    function VotingController(UtilitiesService, growl, VotingService, $window) {
         var voting = this;
         voting.menuItems = UtilitiesService.menuItems(3);
         voting.pageTitle = "BARAZA PHOTO COMPETITION - PHOTO VOTING";

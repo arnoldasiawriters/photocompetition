@@ -25,7 +25,6 @@
         ctrl.btnAddHref = "#addCategory";
 
         ctrl.addCategory = function () {
-            ctrl.categoryName = "";
             $dialog('app/photocompetition/administration/categories/categories-add.tpl.html', 'md')
                 .then(function (category) {
                     CategoriesService
@@ -37,20 +36,38 @@
                                     $location.path("/listCategories");
                                 }
                             });
+                        })
+                        .catch(function (error) {
+                            growl.error(error.message, {
+                                title: 'UnSuccessll Transaction', onclose: function () {
+                                    $location.path("/listCategories");
+                                }
+                            });
                         });
                 });
         };
 
-        ctrl.editCategory = function (category) {
-            var categoryDW = { scopeVariableName: 'category', dataObject: category };
+        ctrl.editCategory = function (categoryOld) {
+            var categoryDW = { scopeVariableName: 'category', dataObject: categoryOld };
             $dialog('app/photocompetition/administration/categories/categories-edit.tpl.html', 'md', categoryDW)
-                .then(function (category) {
-                    growl.success('Your category has been updated successfully!', {
-                        title: 'Success Transaction', onclose: function () {
-                            $window.location.reload();
-                        }
-                    });
-                    $location.path("/listCategories");
+                .then(function (categoryNew) {
+                    CategoriesService
+                        .editCompetitionCats(categoryOld, categoryNew)
+                        .then(function (categories) {
+                            growl.success('Your category has been updated successfully!', {
+                                title: 'Success Transaction', onclose: function () {
+                                    ctrl.categories = categories;
+                                    $location.path("/listCategories");
+                                }
+                            });
+                        })
+                        .catch(function (error) {
+                            growl.error(error.message, {
+                                title: 'UnSuccessll Transaction', onclose: function () {
+                                    $location.path("/listCategories");
+                                }
+                            });
+                        });
                 });
         };
 
@@ -59,6 +76,13 @@
                 $dialogConfirm('Are you sure you want to delete this record (' + category + ' )', 'Delete Category')
                     .then(function () {
                         ctrl.remove(category);
+                    })
+                    .catch(function (error) {
+                        growl.error(error.message, {
+                            title: 'UnSuccessll Transaction', onclose: function () {
+                                $location.path("/listCategories");
+                            }
+                        });
                     });
             }
         };
