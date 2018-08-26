@@ -1,25 +1,38 @@
-<div ng-controller="CompetitionsController as competitions">
-    <div class="margin-top">
-        <main-menu menu-items="competitions.menuItems"></main-menu>
-    </div>
-
-    <div class="row">
-        <div class="col-md-10">
-            <div class="panel panel-info">
-                <div class="panel-heading margin-top">
-                    <page-title page-title="competitions.pageTitle"></page-title>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <admin-menu></admin-menu>
+<div ng-controller="CompetitionsController as ctrl">
+        <div class="col-md-12">
+            <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+            <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+            <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+            <div class="bootstrap-iso">
+                <div class="col-md-12">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Add Competition</h3>
                         </div>
-                        <div class="col-md-9">
-
+                        <form method="post" name="frm" novalidate>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="control-label requiredField">
+                                        Competition Name:<span class="asteriskField">*</span>
+                                    </label>
+                                    <input class="form-control" type="text" ng-model="ctrl.competitionName" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group">
+                                    <div>
+                                        <button class="btn btn-success " name="submit" type="submit" ng-click="submit(frm, ctrl.competitionName);" ng-disabled="!frm.$valid">
+                                            Save and close
+                                        </button>
+                                        <button class="btn btn-warning " name="submit" type="submit" ng-click="cancel()">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                        </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

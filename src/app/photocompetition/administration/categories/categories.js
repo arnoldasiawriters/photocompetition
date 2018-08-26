@@ -6,19 +6,10 @@
         .controller('CategoriesController', CategoriesController);
 
     CategoriesController.$inject = ['CategoriesService', 'UtilitiesService', 'growl',
-        '$dialog', '$window', '$dialogConfirm', '$dialogAlert', '$location', '$routeParams'];
-    function CategoriesController(CategoriesService, UtilitiesService, growl, $dialog,
-        $window, $dialogConfirm, $dialogAlert, $location, $routeParams) {
+        '$dialog', '$dialogConfirm', '$location'];
+    function CategoriesController(CategoriesService, UtilitiesService, growl,
+        $dialog, $dialogConfirm, $location) {
         var ctrl = this;
-
-        ctrl.remove = function (category) {
-            CategoriesService
-                .removeCompetitionCats(category)
-                .then(function (data) {
-                    ctrl.categories = data;
-                });
-        };
-
         ctrl.menuItems = UtilitiesService.menuItems(5);
         ctrl.pageTitle = "BARAZA PHOTO COMPETITION - ADMINISTRATION (CATEGORIES)";
         ctrl.categories = CategoriesService.getCompetitionCats();
@@ -30,8 +21,9 @@
                     CategoriesService
                         .addCompetitionCats(category)
                         .then(function (categories) {
-                            growl.success('Your category has been submitted successfully!', {
-                                title: 'Success Transaction', onclose: function () {
+                            growl.success('Category saved successfully!', {
+                                referenceId: 1,
+                                onclose: function () {
                                     ctrl.categories = categories;
                                     $location.path("/listCategories");
                                 }
@@ -39,7 +31,8 @@
                         })
                         .catch(function (error) {
                             growl.error(error.message, {
-                                title: 'UnSuccessll Transaction', onclose: function () {
+                                referenceId: 1,
+                                onclose: function () {
                                     $location.path("/listCategories");
                                 }
                             });
@@ -54,8 +47,9 @@
                     CategoriesService
                         .editCompetitionCats(categoryOld, categoryNew)
                         .then(function (categories) {
-                            growl.success('Your category has been updated successfully!', {
-                                title: 'Success Transaction', onclose: function () {
+                            growl.success('Category updated successfully!', {
+                                referenceId: 1,
+                                onclose: function () {
                                     ctrl.categories = categories;
                                     $location.path("/listCategories");
                                 }
@@ -63,7 +57,8 @@
                         })
                         .catch(function (error) {
                             growl.error(error.message, {
-                                title: 'UnSuccessll Transaction', onclose: function () {
+                                referenceId: 1,
+                                onclose: function () {
                                     $location.path("/listCategories");
                                 }
                             });
@@ -75,14 +70,27 @@
             if (category) {
                 $dialogConfirm('Are you sure you want to delete this record (' + category + ' )', 'Delete Category')
                     .then(function () {
-                        ctrl.remove(category);
+                        CategoriesService
+                            .removeCompetitionCats(category)
+                            .then(function (categories) {
+                                growl.success('Category deleted successfully!', {
+                                    referenceId: 1,
+                                    onclose: function () {
+                                        ctrl.categories = categories;
+                                        $location.path("/listCategories");
+                                    }
+                                });
+                            });
                     })
                     .catch(function (error) {
-                        growl.error(error.message, {
-                            title: 'UnSuccessll Transaction', onclose: function () {
-                                $location.path("/listCategories");
-                            }
-                        });
+                        if (error) {
+                            growl.error(error.message, {
+                                referenceId: 1,
+                                onclose: function () {
+                                    $location.path("/listCategories");
+                                }
+                            });   
+                        }
                     });
             }
         };

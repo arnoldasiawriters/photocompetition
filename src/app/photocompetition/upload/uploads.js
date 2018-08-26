@@ -29,7 +29,8 @@
             growl.success('Your photo has been submitted successfully!', {
                 title: 'Successfull Transaction', onclose: function () {
                     $window.location.reload();
-                }
+                },
+                referenceId: 1
             });
         };
     }

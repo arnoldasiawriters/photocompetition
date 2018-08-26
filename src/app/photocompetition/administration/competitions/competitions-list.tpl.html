@@ -1,13 +1,13 @@
-<div ng-controller="CompetitionsController as competitions">
+<div ng-controller="CompetitionsController as ctrl">
     <div class="margin-top">
-        <main-menu menu-items="competitions.menuItems"></main-menu>
+        <main-menu menu-items="ctrl.menuItems"></main-menu>
     </div>
 
     <div class="row">
         <div class="col-md-10">
             <div class="panel panel-info">
                 <div class="panel-heading margin-top">
-                    <page-title page-title="competitions.pageTitle"></page-title>
+                    <page-title page-title="ctrl.pageTitle"></page-title>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -15,7 +15,14 @@
                             <admin-menu></admin-menu>
                         </div>
                         <div class="col-md-9">
-                            <add-button btn-add-href="competitions.btnAddHref"></add-button>
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <a ng-click="ctrl.addCompetition();" class="btn btn-sm btn-success">
+                                        <i class="fa fa-plus-circle"></i>
+                                        Add
+                                    </a>
+                                </div>
+                            </div>
                             <div class="col-md-12 margin-top">
                                 <table class="table table-bordered table-condensed table-striped table-hover">
                                     <thead>
@@ -26,10 +33,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr dir-paginate="competition in competitions.competitions | itemsPerPage: 10">
+                                        <tr dir-paginate="competition in ctrl.competitions | itemsPerPage: 10">
                                             <td>{{$index+1}}.</td>
                                             <td>{{competition}}</td>
-                                            <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                                            <td><a class="btn btn-xs btn-success" ng-click="ctrl.editCompetition(competition);">
+                                                    Edit</a>
+                                                <a class="btn btn-xs btn-success" ng-click="ctrl.deleteCompetition(competition);">
+                                                    Delete</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

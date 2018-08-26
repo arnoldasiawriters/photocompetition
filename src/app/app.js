@@ -5,8 +5,8 @@
      */
     angular
         .module('PhotoCompetitionApp', ['ngRoute', 'customdirectives', 'angular-growl', 'uploads', 'selection',
-            'voting', 'results', 'categories', 'competitions', 'periods','parameters', 'angular-flexslider', 
-            'directives.dirPagination', 'ui.bootstrap', 'ui.bootstrap.dialogs'])
+            'voting', 'results', 'categories', 'competitions', 'periods', 'parameters', 'angular-flexslider',
+            'directives.dirPagination', 'ui.bootstrap', 'ui.bootstrap.dialogs', 'ngAnimate'])
         .config(['growlProvider', GrowlProvider])
         .config(['$routeProvider', RouteProvider]);
 
@@ -29,10 +29,22 @@
                 templateUrl: 'app/photocompetition/results/results-add.tpl.html',
                 controller: 'ResultsController'
             })
+
+            // Routes handling competitions
             .when('/listCompetitions', {
                 templateUrl: 'app/photocompetition/administration/competitions/competitions-list.tpl.html',
                 controller: 'CompetitionsController'
             })
+            .when('/addCompetition', {
+                templateUrl: 'app/photocompetition/administration/competitions/competitions-add.tpl.html',
+                controller: 'CompetitionsController'
+            })
+            .when('/editCompetition/:id', {
+                templateUrl: 'app/photocompetition/administration/competitions/competitions-edit.tpl.html',
+                controller: 'CompetitionsController'
+            })
+
+            // Routes handling categories
             .when('/listCategories', {
                 templateUrl: 'app/photocompetition/administration/categories/categories-list.tpl.html',
                 controller: 'CategoriesController'
@@ -45,6 +57,7 @@
                 templateUrl: 'app/photocompetition/administration/categories/categories-edit.tpl.html',
                 controller: 'CategoriesController'
             })
+
             .when('/listPeriods', {
                 templateUrl: 'app/photocompetition/administration/periods/periods-list.tpl.html',
                 controller: 'PeriodsController'
