@@ -33,10 +33,10 @@
             var modal = $uibModal.open({
                 size: 'sm',
                 template: '<div class="modal-header">\
-                        <h4 class="modal-title" ng-bind="title"></h4></div>\
-                        <div class="modal-body" ng-bind="message"></div>\
+                        <h3 class="modal-title" ng-bind="title"></h3></div>\
+                        <div class="modal-body form-label" ng-bind="message"></div>\
                         <div class="modal-footer">\
-                            <button class="btn btn-primary" ng-click="modal.close()">OK</button>\
+                            <button class="btn btn-warning" ng-click="modal.close()">OK</button>\
                         </div>',
                 controller: function ($scope, $uibModalInstance) {
                     $scope.modal = $uibModalInstance;

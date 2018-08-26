@@ -15,7 +15,7 @@
         $routeprovider
             .when('/addUploads', {
                 templateUrl: 'app/photocompetition/upload/uploads-add.tpl.html',
-                controller: 'UploadsController'
+                controller: 'UploadsController as ctrl'
             })
             .when('/addSelection', {
                 templateUrl: 'app/photocompetition/selection/selection-add.tpl.html',

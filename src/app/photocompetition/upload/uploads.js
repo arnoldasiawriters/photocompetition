@@ -4,34 +4,49 @@
      * UploadsController provides view model for Uploads
      */
     angular
-        .module('uploads', ['services.utilities'])
+        .module('uploads', ['services.utilities','resources.uploads'])
         .controller('UploadsController', UploadsController);
 
-    UploadsController.$inject = ['$scope', '$window', 'UtilitiesService', 'growl'];
+    UploadsController.$inject = ['$scope', '$window', 'UtilitiesService',
+        'growl', '$dialog', '$dialogAlert', 'CompetitionsService',
+        'CategoriesService', 'PeriodsService', 'UploadsService'];
 
-    function UploadsController($scope, $window, UtilitiesService, growl) {
-        var uploads = this;
-        uploads.menuItems = UtilitiesService.menuItems(1);
-        uploads.pageTitle = "BARAZA PHOTO COMPETITION - PHOTO UPLOAD";
-        uploads.uploadedPhoto = function (event) {
+    function UploadsController($scope, $window, UtilitiesService, growl,
+        $dialog, $dialogAlert, CompetitionsService, CategoriesService,
+        PeriodsService, UploadsService) {
+        var ctrl = this;
+        ctrl.menuItems = UtilitiesService.menuItems(1);
+        ctrl.competitions = CompetitionsService.getCompetitions().sort();
+        ctrl.categories = CategoriesService.getCompetitionCats().sort();
+        ctrl.periods = PeriodsService.getPeriods().sort().reverse();
+        ctrl.pageTitle = "BARAZA PHOTO COMPETITION - PHOTO UPLOAD";
+        ctrl.photo = {};
+        ctrl.uploadedPhoto = function (event) {
             var imageFile = event.target.files[0];
             var reader = new FileReader();
-            reader.onload = uploads.imageIsLoaded;
+            reader.onload = ctrl.imageIsLoaded;
             reader.readAsDataURL(imageFile);
         };
 
-        uploads.imageIsLoaded = function (e) {
+        ctrl.imageIsLoaded = function (e) {
             $scope.uploadedPhotoHref = e.target.result;
             $scope.$apply();
         };
 
-        uploads.submit = function () {
-            growl.success('Your photo has been submitted successfully!', {
-                title: 'Successfull Transaction', onclose: function () {
-                    $window.location.reload();
-                },
-                referenceId: 1
-            });
+        ctrl.submit = function () {
+            UploadsService
+                .submitPhoto(ctrl.photo)
+                .then(function () {
+                    $dialogAlert('Photo submitted successfully!', 'Successfull Transaction')
+                        .then(function () {
+                            $window.location.reload();
+                        });
+                })
+                .catch(function (error) {
+                    growl.error(error.message, {
+                        referenceId: 1
+                    });
+                });
         };
     }
 })();
