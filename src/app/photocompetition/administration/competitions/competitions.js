@@ -6,13 +6,13 @@
         .controller('CompetitionsController', CompetitionsController);
 
     CompetitionsController.$inject = ['UtilitiesService', 'growl', 'CompetitionsService',
-        '$dialog', '$dialogConfirm', '$location'];
+        '$dialog', '$dialogConfirm'];
     function CompetitionsController(UtilitiesService, growl, CompetitionsService,
-        $dialog, $dialogConfirm, $location) {
+        $dialog, $dialogConfirm) {
         var ctrl = this;
         ctrl.menuItems = UtilitiesService.menuItems(5);
         ctrl.pageTitle = "BARAZA PHOTO COMPETITION - ADMINISTRATION (COMPETITIONS)";
-        ctrl.competitions = CompetitionsService.getCompetitions();
+        ctrl.competitions = CompetitionsService.getCompetitions().sort();
         ctrl.btnAddHref = "#addCompetition";
 
         ctrl.addCompetition = function () {
@@ -21,21 +21,17 @@
                     CompetitionsService
                         .addCompetition(competition)
                         .then(function (competitions) {
+                            ctrl.competitions = competitions.sort();
                             growl.success('Competition saved successfully!', {
-                                referenceId: 1,
-                                onclose: function () {
-                                    ctrl.competitions = competitions;
-                                    $location.path("/listCompetitions");
-                                }
+                                referenceId: 1
                             });
                         })
                         .catch(function (error) {
-                            growl.error(error.message, {
-                                referenceId: 1,
-                                onclose: function () {
-                                    $location.path("/listCompetitions");
-                                }
-                            });
+                            if (error) {
+                                growl.error(error.message, {
+                                    referenceId: 1
+                                });
+                            }
                         });
                 });
         };
@@ -47,21 +43,17 @@
                     CompetitionsService
                         .editCompetition(competitionOld, competitionNew)
                         .then(function (competitions) {
+                            ctrl.competitions = competitions.sort();
                             growl.success('Competition updated successfully!', {
-                                referenceId: 1,
-                                onclose: function () {
-                                    ctrl.competitions = competitions;
-                                    $location.path("/listCompetitions");
-                                }
+                                referenceId: 1
                             });
                         })
                         .catch(function (error) {
-                            growl.error(error.message, {
-                                referenceId: 1,
-                                onclose: function () {
-                                    $location.path("/listCompetitions");
-                                }
-                            });
+                            if (error) {
+                                growl.error(error.message, {
+                                    referenceId: 1
+                                });
+                            }
                         });
                 });
         };
@@ -73,23 +65,17 @@
                         CompetitionsService
                             .removeCompetition(competition)
                             .then(function (competitions) {
+                                ctrl.competitions = competitions.sort();
                                 growl.success('Competition deleted successfully!', {
-                                    referenceId: 1,
-                                    onclose: function () {
-                                        ctrl.competitions = competitions;
-                                        $location.path("/listCompetitions");
-                                    }
+                                    referenceId: 1
                                 });
                             });
                     })
                     .catch(function (error) {
                         if (error) {
                             growl.error(error.message, {
-                                referenceId: 1,
-                                onclose: function () {
-                                    $location.path("/listCompetitions");
-                                }
-                            });   
+                                referenceId: 1
+                            });
                         }
                     });
             }

@@ -6,13 +6,13 @@
         .controller('CategoriesController', CategoriesController);
 
     CategoriesController.$inject = ['CategoriesService', 'UtilitiesService', 'growl',
-        '$dialog', '$dialogConfirm', '$location'];
+        '$dialog', '$dialogConfirm'];
     function CategoriesController(CategoriesService, UtilitiesService, growl,
-        $dialog, $dialogConfirm, $location) {
+        $dialog, $dialogConfirm) {
         var ctrl = this;
         ctrl.menuItems = UtilitiesService.menuItems(5);
         ctrl.pageTitle = "BARAZA PHOTO COMPETITION - ADMINISTRATION (CATEGORIES)";
-        ctrl.categories = CategoriesService.getCompetitionCats();
+        ctrl.categories = CategoriesService.getCompetitionCats().sort();
         ctrl.btnAddHref = "#addCategory";
 
         ctrl.addCategory = function () {
@@ -21,21 +21,17 @@
                     CategoriesService
                         .addCompetitionCats(category)
                         .then(function (categories) {
+                            ctrl.categories = categories.sort();
                             growl.success('Category saved successfully!', {
-                                referenceId: 1,
-                                onclose: function () {
-                                    ctrl.categories = categories;
-                                    $location.path("/listCategories");
-                                }
+                                referenceId: 1
                             });
                         })
                         .catch(function (error) {
-                            growl.error(error.message, {
-                                referenceId: 1,
-                                onclose: function () {
-                                    $location.path("/listCategories");
-                                }
-                            });
+                            if (error) {
+                                growl.error(error.message, {
+                                    referenceId: 1
+                                });
+                            }
                         });
                 });
         };
@@ -47,21 +43,17 @@
                     CategoriesService
                         .editCompetitionCats(categoryOld, categoryNew)
                         .then(function (categories) {
+                            ctrl.categories = categories.sort();
                             growl.success('Category updated successfully!', {
-                                referenceId: 1,
-                                onclose: function () {
-                                    ctrl.categories = categories;
-                                    $location.path("/listCategories");
-                                }
+                                referenceId: 1
                             });
                         })
                         .catch(function (error) {
-                            growl.error(error.message, {
-                                referenceId: 1,
-                                onclose: function () {
-                                    $location.path("/listCategories");
-                                }
-                            });
+                            if (error) {
+                                growl.error(error.message, {
+                                    referenceId: 1
+                                });
+                            }
                         });
                 });
         };
@@ -73,23 +65,17 @@
                         CategoriesService
                             .removeCompetitionCats(category)
                             .then(function (categories) {
+                                ctrl.categories = categories.sort();
                                 growl.success('Category deleted successfully!', {
-                                    referenceId: 1,
-                                    onclose: function () {
-                                        ctrl.categories = categories;
-                                        $location.path("/listCategories");
-                                    }
+                                    referenceId: 1
                                 });
                             });
                     })
                     .catch(function (error) {
                         if (error) {
                             growl.error(error.message, {
-                                referenceId: 1,
-                                onclose: function () {
-                                    $location.path("/listCategories");
-                                }
-                            });   
+                                referenceId: 1
+                            });
                         }
                     });
             }

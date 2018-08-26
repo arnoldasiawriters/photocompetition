@@ -30,20 +30,6 @@
                 controller: 'ResultsController'
             })
 
-            // Routes handling competitions
-            .when('/listCompetitions', {
-                templateUrl: 'app/photocompetition/administration/competitions/competitions-list.tpl.html',
-                controller: 'CompetitionsController'
-            })
-            .when('/addCompetition', {
-                templateUrl: 'app/photocompetition/administration/competitions/competitions-add.tpl.html',
-                controller: 'CompetitionsController'
-            })
-            .when('/editCompetition/:id', {
-                templateUrl: 'app/photocompetition/administration/competitions/competitions-edit.tpl.html',
-                controller: 'CompetitionsController'
-            })
-
             // Routes handling categories
             .when('/listCategories', {
                 templateUrl: 'app/photocompetition/administration/categories/categories-list.tpl.html',
@@ -58,10 +44,35 @@
                 controller: 'CategoriesController'
             })
 
+            // Routes handling competitions
+            .when('/listCompetitions', {
+                templateUrl: 'app/photocompetition/administration/competitions/competitions-list.tpl.html',
+                controller: 'CompetitionsController'
+            })
+            .when('/addCompetition', {
+                templateUrl: 'app/photocompetition/administration/competitions/competitions-add.tpl.html',
+                controller: 'CompetitionsController'
+            })
+            .when('/editCompetition/:id', {
+                templateUrl: 'app/photocompetition/administration/competitions/competitions-edit.tpl.html',
+                controller: 'CompetitionsController'
+            })
+
+            //Routes for handling periods
             .when('/listPeriods', {
                 templateUrl: 'app/photocompetition/administration/periods/periods-list.tpl.html',
                 controller: 'PeriodsController'
             })
+            .when('/addPeriod', {
+                templateUrl: 'app/photocompetition/administration/periods/periods-add.tpl.html',
+                controller: 'PeriodsController'
+            })
+            .when('/editPeriod/:id', {
+                templateUrl: 'app/photocompetition/administration/periods/periods-edit.tpl.html',
+                controller: 'PeriodsController'
+            })
+
+            //Routes for handling parameters
             .when('/editParameters', {
                 templateUrl: 'app/photocompetition/administration/parameters/parameters-edit.tpl.html',
                 controller: 'ParametersController'

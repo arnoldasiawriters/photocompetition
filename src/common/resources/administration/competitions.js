@@ -22,7 +22,7 @@
             } else if (competition.trim().length <= 0) {
                 svc.error.message = "Provided competition is empty!";
                 deferred.reject(svc.error);
-            }  else {
+            } else {
                 svc.competitions.push(competition);
                 deferred.resolve(svc.competitions);
             }
@@ -42,7 +42,9 @@
                 deferred.reject(svc.error);
             } else {
                 for (var i = 0; i < svc.competitions.length; i++) {
-                    svc.competitions[i] = svc.competitions[i].replace(competitionOld, competitionNew);
+                    if (svc.competitions[i] == competitionOld) {
+                        svc.competitions[i] = svc.competitions[i].replace(competitionOld, competitionNew);
+                    }
                 }
                 deferred.resolve(svc.competitions);
             }
@@ -55,7 +57,7 @@
                 _.pull(svc.competitions, competition);
                 deferred.resolve(svc.competitions);
             } else {
-                svc.error.message = "Category not available!";
+                svc.error.message = "Period not available!";
                 deferred.reject(svc.error);
             }
             return deferred.promise;

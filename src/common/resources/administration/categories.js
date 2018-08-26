@@ -9,7 +9,7 @@
         var svc = this;
         svc.error = { message: "" };
         svc.categories = ["Category 1", "Category 2", "Category 3", "Category 4", "Category 5"];
-        
+
         svc.getCompetitionCats = function () {
             return svc.categories;
         };
@@ -22,7 +22,7 @@
             } else if (category.trim().length <= 0) {
                 svc.error.message = "Provided category is empty!";
                 deferred.reject(svc.error);
-            }  else {
+            } else {
                 svc.categories.push(category);
                 deferred.resolve(svc.categories);
             }
@@ -41,7 +41,9 @@
                 deferred.reject(svc.error);
             } else {
                 for (var i = 0; i < svc.categories.length; i++) {
-                    svc.categories[i] = svc.categories[i].replace(categoryOld, categoryNew);
+                    if (svc.categories[i] == categoryOld) {
+                        svc.categories[i] = svc.categories[i].replace(categoryOld, categoryNew);
+                    }
                 }
                 deferred.resolve(svc.categories);
             }

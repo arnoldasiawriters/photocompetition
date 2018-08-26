@@ -35,7 +35,7 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
     <script type="text/javascript" src="common/directives/pagination/dirPagination.js"></script>
     <script type="text/javascript" src="common/directives/ui-bootstrap-dialogs.js"></script>
-    
+
     <!-- Include javascript Models -->
     <script type="text/javascript" src="common/resources/uploads.js"></script>
     <script type="text/javascript" src="common/resources/selection.js"></script>
@@ -63,7 +63,14 @@
 
 <body>
     <div class="container-fluid" ng-app="PhotoCompetitionApp">
-        <div growl reference="1" inline="true" class="margin-top font-bold"></div> <!-- adding the grow directive to html -->
+        <div class="row">
+            <div class="col-md-10">
+                <!-- adding the grow directive to html -->
+                <div growl reference="1" inline="true" class="font-bold">
+                </div>
+            </div>
+        </div>
+
 
         <div id="photocompapp" ng-view="">
 
