@@ -8,7 +8,7 @@
                 <div class="modal-header">
                     <h3>Add Category</h3>
                 </div>
-                <form method="post" name="frm" novalidate>
+                <form ng-submit="submit" method="post" name="frm" novalidate>
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label requiredField">
@@ -20,10 +20,10 @@
                     <div class="modal-footer">
                         <div class="form-group">
                             <div>
-                                <button class="btn btn-success " name="submit" type="submit" ng-click="submit(frm, ctrl.categoryName);" ng-disabled="!frm.$valid">
+                                <button class="btn btn-success " name="submit" type="submit" ng-click="submit(frm, ctrl.categoryName)" ng-disabled="!frm.$valid">
                                     Save and close
                                 </button>
-                                <button class="btn btn-warning " name="submit" type="submit" ng-click="cancel()">
+                                <button class="btn btn-warning " name="submit" type="button" ng-click="cancel()">
                                     Cancel
                                 </button>
                             </div>

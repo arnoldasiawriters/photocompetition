@@ -1,0 +1,112 @@
+{
+    "d": [
+        {
+            "ID": 1,
+            "image": "images/selection/images/Finance.JPG",
+            "thumbnail": "images/selection/thumbnails/Finance_t.JPG",
+            "imageClass": "",
+            "selected": false,
+            "voteCount": 0,
+            "competitionid": 1
+        },
+        {
+            "ID": 2,
+            "image": "images/selection/images/Laboratories.JPG",
+            "thumbnail": "images/selection/thumbnails/Laboratories_t.JPG",
+            "imageClass": "",
+            "selected": false,
+            "voteCount": 0,
+            "competitionid": 1
+        },
+        {
+            "ID": 3,
+            "image": "images/selection/images/MainGate.JPG",
+            "thumbnail": "images/selection/thumbnails/MainGate_t.JPG",
+            "imageClass": "",
+            "selected": false,
+            "voteCount": 0,
+            "competitionid": 1
+        },
+        {
+            "ID": 4,
+            "image": "images/selection/images/Reception.JPG",
+            "thumbnail": "images/selection/thumbnails/Reception_t.JPG",
+            "imageClass": "",
+            "selected": false,
+            "voteCount": 0,
+            "competitionid": 1
+        },
+        {
+            "ID": 5,
+            "image": "images/selection/images/Finance.JPG",
+            "thumbnail": "images/selection/thumbnails/Finance_t.JPG",
+            "imageClass": "",
+            "selected": false,
+            "voteCount": 0,
+            "competitionid": 1
+        },
+        {
+            "ID": 6,
+            "image": "images/selection/images/Laboratories.JPG",
+            "thumbnail": "images/selection/thumbnails/Laboratories_t.JPG",
+            "imageClass": "",
+            "selected": false,
+            "voteCount": 0,
+            "competitionid": 1
+        },
+        {
+            "ID": 7,
+            "image": "images/selection/images/MainGate.JPG",
+            "thumbnail": "images/selection/thumbnails/MainGate_t.JPG",
+            "imageClass": "",
+            "selected": false,
+            "voteCount": 0,
+            "competitionid": 2
+        },
+        {
+            "ID": 8,
+            "image": "images/selection/images/Reception.JPG",
+            "thumbnail": "images/selection/thumbnails/Reception_t.JPG",
+            "imageClass": "",
+            "selected": false,
+            "voteCount": 0,
+            "competitionid": 2
+        },
+        {
+            "ID": 9,
+            "image": "images/selection/images/Finance.JPG",
+            "thumbnail": "images/selection/thumbnails/Finance_t.JPG",
+            "imageClass": "",
+            "selected": false,
+            "voteCount": 0,
+            "competitionid": 2
+        },
+        {
+            "ID": 10,
+            "image": "images/selection/images/Laboratories.JPG",
+            "thumbnail": "images/selection/thumbnails/Laboratories_t.JPG",
+            "imageClass": "",
+            "selected": false,
+            "voteCount": 0,
+            "competitionid": 2
+        },
+        {
+            "ID": 11,
+            "image": "images/selection/images/MainGate.JPG",
+            "thumbnail": "images/selection/thumbnails/MainGate_t.JPG",
+            "imageClass": "",
+            "selected": false,
+            "voteCount": 0,
+            "competitionid": 1
+        },
+        {
+            "ID": 12,
+            "image": "images/selection/images/Reception.JPG",
+            "thumbnail": "images/selection/thumbnails/Reception_t.JPG",
+            "imageClass": "",
+            "selected": false,
+            "voteCount": 0,
+            "competitionid": 1
+        }
+    ]
+}

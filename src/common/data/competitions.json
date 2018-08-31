@@ -1,0 +1,26 @@
+{
+    "d":[
+        {
+            "ID": 1,
+            "CategoryID": 1,
+            "PeriodID": 2,
+            "CompetitionName": "Competition 1",
+            "StartDate": "08/01/2018",
+            "EndDate": "08/31/2018",
+            "EndofUploadDate": "08/10/2018",
+            "EndofSelectionDate": "08/20/2018",
+            "EndofVotingDate": "08/31/2018"
+        },
+        {
+            "ID": 1,
+            "CategoryID": 1,
+            "PeriodID": 2,
+            "CompetitionName": "Competition 2",
+            "StartDate": "09/01/2018",
+            "EndDate": "09/30/2018",
+            "EndofUploadDate": "09/10/2018",
+            "EndofSelectionDate": "09/20/2018",
+            "EndofVotingDate": "09/30/2018"
+        }
+    ]
+}

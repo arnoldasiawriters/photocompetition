@@ -33,7 +33,7 @@
                                     <tbody>
                                         <tr dir-paginate="category in ctrl.categories | itemsPerPage: 10">
                                             <td>{{$index+1}}.</td>
-                                            <td>{{category}}</td>
+                                            <td>{{category.name}}</td>
                                             <td>
                                                 <a class="btn btn-xs btn-success" ng-click="ctrl.editCategory(category);">
                                                     Edit</a> <a class="btn btn-xs btn-success" ng-click="ctrl.deleteCategory(category);">Delete</a>

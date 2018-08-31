@@ -1,0 +1,184 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Category 1"
+    },
+    {
+      "id": 2,
+      "name": "Category 2"
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4
+    }
+  ],
+  "competitions": [
+    {
+      "id": 1,
+      "CategoryID": 1,
+      "PeriodID": 2,
+      "CompetitionName": "Competition 1",
+      "StartDate": "08/01/2018",
+      "EndDate": "08/31/2018",
+      "EndofUploadDate": "08/10/2018",
+      "EndofSelectionDate": "08/20/2018",
+      "EndofVotingDate": "08/31/2018"
+    },
+    {
+      "id": 1,
+      "CategoryID": 1,
+      "PeriodID": 2,
+      "CompetitionName": "Competition 2",
+      "StartDate": "09/01/2018",
+      "EndDate": "09/30/2018",
+      "EndofUploadDate": "09/10/2018",
+      "EndofSelectionDate": "09/20/2018",
+      "EndofVotingDate": "09/30/2018"
+    }
+  ],
+  "periods": [
+    {
+      "id": 1,
+      "name": "2017"
+    },
+    {
+      "id": 2,
+      "name": "2018"
+    }
+  ],
+  "parameters": [
+    {
+      "id": 1,
+      "title": "Photo upload count per user per category",
+      "value": 1
+    },
+    {
+      "id": 2,
+      "title": "Photo selection count per category",
+      "value": 5
+    },
+    {
+      "id": 3,
+      "title": "Photo user vote count per category",
+      "value": 1
+    },
+    {
+      "id": 4,
+      "title": "Photo results count per category",
+      "value": 3
+    }
+  ],
+  "images": [
+    {
+      "id": 1,
+      "image": "images/selection/images/Finance.JPG",
+      "thumbnail": "images/selection/thumbnails/Finance_t.JPG",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competitionid": 1
+    },
+    {
+      "id": 2,
+      "image": "images/selection/images/Laboratories.JPG",
+      "thumbnail": "images/selection/thumbnails/Laboratories_t.JPG",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competitionid": 1
+    },
+    {
+      "id": 3,
+      "image": "images/selection/images/MainGate.JPG",
+      "thumbnail": "images/selection/thumbnails/MainGate_t.JPG",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competitionid": 1
+    },
+    {
+      "id": 4,
+      "image": "images/selection/images/Reception.JPG",
+      "thumbnail": "images/selection/thumbnails/Reception_t.JPG",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competitionid": 1
+    },
+    {
+      "id": 5,
+      "image": "images/selection/images/Finance.JPG",
+      "thumbnail": "images/selection/thumbnails/Finance_t.JPG",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competitionid": 1
+    },
+    {
+      "id": 6,
+      "image": "images/selection/images/Laboratories.JPG",
+      "thumbnail": "images/selection/thumbnails/Laboratories_t.JPG",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competitionid": 1
+    },
+    {
+      "id": 7,
+      "image": "images/selection/images/MainGate.JPG",
+      "thumbnail": "images/selection/thumbnails/MainGate_t.JPG",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competitionid": 2
+    },
+    {
+      "id": 8,
+      "image": "images/selection/images/Reception.JPG",
+      "thumbnail": "images/selection/thumbnails/Reception_t.JPG",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competitionid": 2
+    },
+    {
+      "id": 9,
+      "image": "images/selection/images/Finance.JPG",
+      "thumbnail": "images/selection/thumbnails/Finance_t.JPG",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competitionid": 2
+    },
+    {
+      "id": 10,
+      "image": "images/selection/images/Laboratories.JPG",
+      "thumbnail": "images/selection/thumbnails/Laboratories_t.JPG",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competitionid": 2
+    },
+    {
+      "id": 11,
+      "image": "images/selection/images/MainGate.JPG",
+      "thumbnail": "images/selection/thumbnails/MainGate_t.JPG",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competitionid": 1
+    },
+    {
+      "id": 12,
+      "image": "images/selection/images/Reception.JPG",
+      "thumbnail": "images/selection/thumbnails/Reception_t.JPG",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competitionid": 1
+    }
+  ]
+}

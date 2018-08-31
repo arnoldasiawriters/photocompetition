@@ -4,61 +4,125 @@
     angular
         .module('resources.admin.categories', [])
         .service('CategoriesService', CategoriesService);
-    CategoriesService.$inject = ['$q'];
-    function CategoriesService($q) {
+    CategoriesService.$inject = ['$q', 'UtilitiesService'];
+    function CategoriesService($q, UtilitiesService) {
         var svc = this;
+        var categoriesList = null;
         svc.error = { message: "" };
-        svc.categories = ["Category 1", "Category 2", "Category 3", "Category 4", "Category 5"];
 
-        svc.getCompetitionCats = function () {
-            return svc.categories;
-        };
-
-        svc.addCompetitionCats = function (category) {
+        /**
+         * Function for fetching all categories in categories model
+         */
+        svc.fetchAll = function () {
             var deferred = $q.defer();
-            if (_.includes(svc.categories, category)) {
-                svc.error.message = "Category already registered!";
-                deferred.reject(svc.error);
-            } else if (category.trim().length <= 0) {
-                svc.error.message = "Provided category is empty!";
-                deferred.reject(svc.error);
-            } else {
-                svc.categories.push(category);
-                deferred.resolve(svc.categories);
-            }
+            categoriesList = [];
+            UtilitiesService
+                .getListItems("categories")
+                .then(function (categories) {
+                    categories = categories.data;
+                    _.forEach(categories, function (v, k) {
+                        var category = {};
+                        category.id = v.id;
+                        category.name = v.name;
+                        categoriesList.push(category);
+                    });
+                    deferred.resolve(categoriesList);
+                })
+                .catch(function (error) {
+                    deferred.reject(error);
+                });
             return deferred.promise;
         };
-        svc.editCompetitionCats = function (categoryOld, categoryNew) {
+
+        /**
+         * Function for adding category in the model. It that takes @param  {} category
+         */
+        svc.addCategory = function (categoryName) {
             var deferred = $q.defer();
-            if (categoryOld == categoryNew) {
-                svc.error.message = "You have not edited the category!";
-                deferred.reject(svc.error);
-            } else if (_.includes(svc.categories, categoryNew)) {
-                svc.error.message = "Provided category is already registered!";
-                deferred.reject(svc.error);
-            } else if (categoryNew.trim().length <= 0) {
-                svc.error.message = "Provided category is empty!";
-                deferred.reject(svc.error);
-            } else {
-                for (var i = 0; i < svc.categories.length; i++) {
-                    if (svc.categories[i] == categoryOld) {
-                        svc.categories[i] = svc.categories[i].replace(categoryOld, categoryNew);
+            svc
+                .fetchAll().then(function (categories) {
+                    var categoryExists = _.some(categories, function (cat) {
+                        return cat.name === categoryName;
+                    });
+                    if (!categoryExists) {
+                        var category = {};
+                        category.name = categoryName;
+                        UtilitiesService
+                            .createListItem("categories",category)
+                            .then(function (response) {
+                                console.log(response);
+                            })
+                            .catch(function (error) {
+                                deferred.reject(error);
+                            });
+                    } else {
+                        svc.error.message = "Category is already registered!";
+                        deferred.reject(svc.error);
                     }
-                }
-                deferred.resolve(svc.categories);
-            }
+                });
             return deferred.promise;
         };
 
-        svc.removeCompetitionCats = function (category) {
+        /**
+         * Function for editing a category in the categories model. 
+         * It takes parameter @param  {} category which is the new category.
+         */
+        svc.editCategory = function (category) {
             var deferred = $q.defer();
-            if (_.includes(svc.categories, category)) {
-                _.pull(svc.categories, category);
-                deferred.resolve(svc.categories);
-            } else {
-                svc.error.message = "Category not available!";
-                deferred.reject(svc.error);
-            }
+            svc
+                .fetchAll()
+                .then(function (categories) {
+                    var categoryExists = _.some(categories, function (cat) {
+                        return cat.name === category.name;
+                    });
+                    if (!categoryExists) {
+                        _.forEach(categories, function (o) {
+                            if (o.id == category.id) {
+                                o.name = category.name;
+                            }
+                        });
+                        deferred.resolve(categories);
+                    } else {
+                        svc.error.message = "Category submitted is already registered!";
+                        deferred.reject(svc.error);
+                    }
+                })
+                .catch(function (error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+
+        /**
+         * Function for deleting a category from the category list.
+         * It takes @param  {} category which is to be deleted
+         */
+        svc.removeCategory = function (category) {
+            console.log(category);
+
+            var deferred = $q.defer();
+            svc
+                .fetchAll()
+                .then(function (categories) {
+                    var categoryExists = _.some(categories, function (cat) {
+                        return cat.name === category.name;
+                    });
+                    if (categoryExists) {
+                        console.log(categories, category);
+                        _.forEach(categories, function (o) {
+                            if (o.id == category.id) {
+                                categories = categories.splice(category, 1);
+                            }
+                        });
+                        deferred.resolve(categories);
+                    } else {
+                        svc.error.message = "Category has already been deleted!";
+                        deferred.reject(svc.error);
+                    }
+                })
+                .catch(function (error) {
+                    deferred.reject(error);
+                });
             return deferred.promise;
         };
     }

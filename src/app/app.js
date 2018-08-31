@@ -19,11 +19,11 @@
             })
             .when('/addSelection', {
                 templateUrl: 'app/photocompetition/selection/selection-add.tpl.html',
-                controller: 'SelectionController'
+                controller: 'SelectionController as ctrl'
             })
             .when('/addVoting', {
                 templateUrl: 'app/photocompetition/voting/voting-add.tpl.html',
-                controller: 'VotingController'
+                controller: 'VotingController as ctrl'
             })
             .when('/addResults', {
                 templateUrl: 'app/photocompetition/results/results-add.tpl.html',
