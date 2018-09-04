@@ -10,38 +10,39 @@
 
     function CategoriesController(CategoriesService, UtilitiesService, growl,
         $dialog, $dialogConfirm, $location) {
+        var initCategories = [];
         var ctrl = this;
         ctrl.menuItems = UtilitiesService.menuItems(5);
         ctrl.pageTitle = "BARAZA PHOTO COMPETITION - ADMINISTRATION (CATEGORIES)";
-        var initCategories = [];
+        ctrl.btnAddHref = "#addCategory";
+
         CategoriesService
             .fetchAll()
             .then(function (categories) {
-                ctrl.categories = _.sortBy(categories, ['name']);
+                ctrl.categories = _.sortBy(categories, [function (o) { return o.name; }]);
             })
             .catch(function (error) {
                 console.log("Error: ", error.message);
             });
-        ctrl.btnAddHref = "#addCategory";
 
         ctrl.addCategory = function () {
             $dialog('app/photocompetition/administration/categories/categories-add.tpl.html', 'md')
                 .then(function (category) {
                     CategoriesService
-                    .addCategory(category)
-                    .then(function (categories) {
-                        ctrl.categories = _.sortBy(categories, ['name']);
-                        growl.success('Category saved successfully!', {
-                            referenceId: 1
-                        });
-                    })
-                    .catch(function (error) {
-                        if (error) {
-                            growl.error(error.message, {
+                        .addCategory(category)
+                        .then(function (categories) {
+                            ctrl.categories = _.sortBy(categories, [function (o) { return o.name; }]);
+                            growl.success('Category saved successfully!', {
                                 referenceId: 1
                             });
-                        }
-                    });
+                        })
+                        .catch(function (error) {
+                            if (error) {
+                                growl.error(error.message, {
+                                    referenceId: 1
+                                });
+                            }
+                        });
                 });
         };
 
@@ -53,7 +54,7 @@
                     CategoriesService
                         .editCategory(category)
                         .then(function (categories) {
-                            ctrl.categories = _.sortBy(categories, ['name']);
+                            ctrl.categories = _.sortBy(categories, [function (o) { return o.name; }]);
                             growl.success('Category updated successfully!', {
                                 referenceId: 1
                             });
@@ -76,7 +77,7 @@
                         CategoriesService
                             .removeCategory(category)
                             .then(function (categories) {
-                                ctrl.categories = _.sortBy(categories, ['name']);
+                                ctrl.categories = _.sortBy(categories, [function (o) { return o.name; }]);
                                 growl.success('Category deleted successfully!', {
                                     referenceId: 1
                                 });
@@ -91,6 +92,5 @@
                     });
             }
         };
-
     }
 })();

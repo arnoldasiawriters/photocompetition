@@ -70,16 +70,77 @@
                     templateUrl = "";
                     break;
             }
-            
+
+
             var items = $http({
                 url: templateUrl,
                 method: "POST",
                 headers: {
-                    "Accept": "application/json;odata=verbose",
-                    "Content-Type": "application/json;"
+                    "Content-type": "application/json; charset=UTF-8"
                 },
                 data: JSON.stringify(bodyContent)
-            });
+            })
+            return items;
+        };
+
+        utils.updateListItem = function (ListName, itemId, bodyContent) {
+            var templateUrl = "";
+            switch (ListName) {
+                case ListName: "categories"
+                    templateUrl = "http://localhost:4000/categories/"+ itemId;
+                    break;
+                case ListName: "periods"
+                    templateUrl = "http://localhost:4000/periods/"+ itemId;
+                    break;
+                case ListName: "competitions"
+                    templateUrl = "http://localhost:4000/competitions/"+ itemId;
+                    break;
+                case ListName: "images"
+                    templateUrl = "http://localhost:4000/images/"+ itemId;
+                    break;
+                default:
+                    templateUrl = "";
+                    break;
+            }
+
+            var items = $http({
+                url: templateUrl,
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+                data: JSON.stringify(bodyContent)
+            })
+            return items;
+        };
+
+        utils.deleteListItem = function (ListName, itemId) {
+            var templateUrl = "";
+            switch (ListName) {
+                case ListName: "categories"
+                    templateUrl = "http://localhost:4000/categories/"+ itemId;
+                    break;
+                case ListName: "periods"
+                    templateUrl = "http://localhost:4000/periods/"+ itemId;
+                    break;
+                case ListName: "competitions"
+                    templateUrl = "http://localhost:4000/competitions/"+ itemId;
+                    break;
+                case ListName: "images"
+                    templateUrl = "http://localhost:4000/images/"+ itemId;
+                    break;
+                default:
+                    templateUrl = "";
+                    break;
+            }
+
+            var items = $http({
+                url: templateUrl,
+                method: "DELETE",
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
             return items;
         };
     }

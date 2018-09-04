@@ -48,9 +48,11 @@
                         var category = {};
                         category.name = categoryName;
                         UtilitiesService
-                            .createListItem("categories",category)
+                            .createListItem("categories", category)
                             .then(function (response) {
-                                console.log(response);
+                                category.id = response.data.id;
+                                categoriesList.push(category);
+                                deferred.resolve(categoriesList);
                             })
                             .catch(function (error) {
                                 deferred.reject(error);
@@ -70,25 +72,29 @@
         svc.editCategory = function (category) {
             var deferred = $q.defer();
             svc
-                .fetchAll()
-                .then(function (categories) {
+                .fetchAll().then(function (categories) {
                     var categoryExists = _.some(categories, function (cat) {
                         return cat.name === category.name;
                     });
+
                     if (!categoryExists) {
-                        _.forEach(categories, function (o) {
-                            if (o.id == category.id) {
-                                o.name = category.name;
-                            }
-                        });
-                        deferred.resolve(categories);
+                        UtilitiesService
+                            .updateListItem("categories", category.id, category)
+                            .then(function (response) {
+                                _.forEach(categoriesList, function (o) {
+                                    if (o.id == category.id) {
+                                        o.name = category.name;
+                                    }
+                                });
+                                deferred.resolve(categoriesList);
+                            })
+                            .catch(function (error) {
+                                deferred.reject(error);
+                            });
                     } else {
-                        svc.error.message = "Category submitted is already registered!";
+                        svc.error.message = "Provided Category is already registered!";
                         deferred.reject(svc.error);
                     }
-                })
-                .catch(function (error) {
-                    deferred.reject(error);
                 });
             return deferred.promise;
         };
@@ -98,8 +104,6 @@
          * It takes @param  {} category which is to be deleted
          */
         svc.removeCategory = function (category) {
-            console.log(category);
-
             var deferred = $q.defer();
             svc
                 .fetchAll()
@@ -108,13 +112,18 @@
                         return cat.name === category.name;
                     });
                     if (categoryExists) {
-                        console.log(categories, category);
-                        _.forEach(categories, function (o) {
-                            if (o.id == category.id) {
-                                categories = categories.splice(category, 1);
-                            }
-                        });
-                        deferred.resolve(categories);
+
+                        UtilitiesService
+                            .deleteListItem("categories", category.id)
+                            .then(function (response) {
+                                _.remove(categoriesList, function (o) {
+                                    return o.id === category.id;
+                                });
+                                deferred.resolve(categoriesList);
+                            })
+                            .catch(function (error) {
+                                deferred.reject(error);
+                            });
                     } else {
                         svc.error.message = "Category has already been deleted!";
                         deferred.reject(svc.error);

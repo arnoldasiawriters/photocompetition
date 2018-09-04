@@ -14,7 +14,7 @@
                             <label class="control-label requiredField">
                                 Category Name:<span class="asteriskField">*</span>
                             </label>
-                            <input class="form-control" type="text" ng-model="category.name" required autofocus>
+                            <input class="form-control" type="text" ng-model="category.name" ng-model-options="{updateOn:'submit'}" required autofocus>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -28,8 +28,8 @@
                                 </button>
                             </div>
                         </div>
+                    </div>
                 </form>
-                </div>
             </div>
         </div>
     </div>

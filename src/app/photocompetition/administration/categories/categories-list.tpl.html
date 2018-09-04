@@ -25,14 +25,12 @@
                                 <table class="table table-bordered table-condensed table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Category Name</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr dir-paginate="category in ctrl.categories | itemsPerPage: 10">
-                                            <td>{{$index+1}}.</td>
+                                        <tr dir-paginate="category in ctrl.categories | itemsPerPage: 10 track by category.id">
                                             <td>{{category.name}}</td>
                                             <td>
                                                 <a class="btn btn-xs btn-success" ng-click="ctrl.editCategory(category);">
