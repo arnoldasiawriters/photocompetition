@@ -35,7 +35,7 @@
         };
 
         /**
-         * Function for adding category in the model. It that takes @param  {} category
+         * Function for adding category in the model. It takes @param  {} category
          */
         svc.addCategory = function (categoryName) {
             var deferred = $q.defer();

@@ -2,63 +2,136 @@
     'use strict';
 
     angular
-    .module('resources.admin.periods', [])
-    .service('PeriodsService', PeriodsService);
+        .module('resources.admin.periods', [])
+        .service('PeriodsService', PeriodsService);
     PeriodsService.$inject = ['$q'];
     function PeriodsService($q) {
         var svc = this;
+        var periodsList = null;
         svc.error = { message: "" };
-        svc.periods = ["2014", "2015", "2016", "2017", "2018"];
-        svc.getPeriods = function () {
-            return svc.periods;
-        };
 
-        svc.addPeriod = function (period) {
+        /**
+         * Function for fetching all periods in periods model
+         */
+        svc.fetchAll = function () {
             var deferred = $q.defer();
-            if (_.includes(svc.periods, period)) {
-                svc.error.message = "Period already registered!";
-                deferred.reject(svc.error);
-            } else if (period.trim().length <= 0) {
-                svc.error.message = "Provided period is empty!";
-                deferred.reject(svc.error);
-            }  else {
-                svc.periods.push(period);
-                deferred.resolve(svc.periods);
-            }
+            periodsList = [];
+            UtilitiesService
+                .getListItems("periods")
+                .then(function (periods) {
+                    periods = periods.data;
+                    _.forEach(periods, function (v, k) {
+                        var period = {};
+                        period.id = v.id;
+                        period.name = v.name;
+                        periodsList.push(period);
+                    });
+                    deferred.resolve(periodsList);
+                })
+                .catch(function (error) {
+                    deferred.reject(error);
+                });
             return deferred.promise;
         };
 
-        svc.editPeriod = function (periodOld, periodNew) {
+        /**
+         * Function for adding period in the model. It takes @param  {} period
+         */
+        svc.addPeriod = function (periodName) {
             var deferred = $q.defer();
-            if (periodOld == periodNew) {
-                svc.error.message = "You have not edited the period!";
-                deferred.reject(svc.error);
-            } else if (_.includes(svc.periods, periodNew)) {
-                svc.error.message = "Provided period is already registered!";
-                deferred.reject(svc.error);
-            } else if (periodNew.trim().length <= 0) {
-                svc.error.message = "Provided period is empty!";
-                deferred.reject(svc.error);
-            } else {
-                for (var i = 0; i < svc.periods.length; i++) {
-                    if(svc.periods[i] == periodOld) {
-                        svc.periods[i] = svc.periods[i].replace(periodOld, periodNew);
+            svc
+                .fetchAll().then(function (periods) {
+                    var periodExists = _.some(periods, function (p) {
+                        return p.name === periodName;
+                    });
+                    if (!periodExists) {
+                        var period = {};
+                        period.name = periodName;
+                        UtilitiesService
+                            .createListItem("periods", period)
+                            .then(function (response) {
+                                period.id = response.data.id;
+                                periodsList.push(period);
+                                deferred.resolve(periodsList);
+                            })
+                            .catch(function (error) {
+                                deferred.reject(error);
+                            });
+                    } else {
+                        svc.error.message = "Period is already registered!";
+                        deferred.reject(svc.error);
                     }
-                }
-                deferred.resolve(svc.periods);
-            }
+                });
             return deferred.promise;
         };
 
-        svc.removePeriod = function (period) {
+        /**
+         * Function for editing a period in the periods model. 
+         * It takes parameter @param  {} period which is the new period.
+         */
+        svc.editCategory = function (period) {
             var deferred = $q.defer();
-            if (_.includes(svc.periods, period)) {
-                _.pull(svc.periods, period);
-                deferred.resolve(svc.periods);
-            } else {
-                svc.error.message = "Period not available!";
-                deferred.reject(svc.error);
-            }
+            svc
+                .fetchAll().then(function (periods) {
+                    var periodExists = _.some(periods, function (p) {
+                        return p.name === period.name;
+                    });
+
+                    if (!periodExists) {
+                        UtilitiesService
+                            .updateListItem("periods", period.id, period)
+                            .then(function (response) {
+                                _.forEach(periodsList, function (o) {
+                                    if (o.id == period.id) {
+                                        o.name = period.name;
+                                    }
+                                });
+                                deferred.resolve(periodsList);
+                            })
+                            .catch(function (error) {
+                                deferred.reject(error);
+                            });
+                    } else {
+                        svc.error.message = "Provided Periods is already registered!";
+                        deferred.reject(svc.error);
+                    }
+                });
+            return deferred.promise;
+        };
+
+        /**
+         * Function for deleting a period from the period list.
+         * It takes @param  {} period which is to be deleted
+         */
+        svc.removeCategory = function (period) {
+            var deferred = $q.defer();
+            svc
+                .fetchAll()
+                .then(function (periods) {
+                    var periodExists = _.some(periods, function (p) {
+                        return p.name === period.name;
+                    });
+                    if (periodExists) {
+
+                        UtilitiesService
+                            .deleteListItem("periods", period.id)
+                            .then(function (response) {
+                                _.remove(periodsList, function (o) {
+                                    return o.id === period.id;
+                                });
+                                deferred.resolve(periodsList);
+                            })
+                            .catch(function (error) {
+                                deferred.reject(error);
+                            });
+                    } else {
+                        svc.error.message = "Period has already been deleted!";
+                        deferred.reject(svc.error);
+                    }
+                })
+                .catch(function (error) {
+                    deferred.reject(error);
+                });
             return deferred.promise;
         };
     }

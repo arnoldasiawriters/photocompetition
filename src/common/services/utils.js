@@ -20,12 +20,11 @@
             { menuId: 3, title: "Voting", class: "", url: "#addVoting", icon: "fa-edit" },
             { menuId: 4, title: "Results", class: "", url: "#addResults", icon: "fa-align-justify" },
             { menuId: 5, title: "Administration", class: "", url: "#listCategories", icon: "fa-wrench" }];
-
             _.set(_.find(menuitems, { menuId: activeMenu }), "class", "active");
             return menuitems;
         };
 
-        utils.getListItems = function (ListName) {
+        utils.getTemplateURL = function (ListName) {
             var templateUrl = "";
             switch (ListName) {
                 case ListName: "categories"
@@ -44,36 +43,20 @@
                     templateUrl = "";
                     break;
             }
+            return templateUrl;
+        };
+
+        utils.getListItems = function (ListName) {
             var items = $http({
                 method: "GET",
-                url: templateUrl
+                url: utils.getTemplateURL(ListName)
             });
             return items;
         };
 
         utils.createListItem = function (ListName, bodyContent) {
-            var templateUrl = "";
-            switch (ListName) {
-                case ListName: "categories"
-                    templateUrl = "http://localhost:4000/categories";
-                    break;
-                case ListName: "periods"
-                    templateUrl = "http://localhost:4000/periods";
-                    break;
-                case ListName: "competitions"
-                    templateUrl = "http://localhost:4000/competitions";
-                    break;
-                case ListName: "images"
-                    templateUrl = "http://localhost:4000/images";
-                    break;
-                default:
-                    templateUrl = "";
-                    break;
-            }
-
-
             var items = $http({
-                url: templateUrl,
+                url: utils.getTemplateURL(ListName),
                 method: "POST",
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
@@ -84,27 +67,8 @@
         };
 
         utils.updateListItem = function (ListName, itemId, bodyContent) {
-            var templateUrl = "";
-            switch (ListName) {
-                case ListName: "categories"
-                    templateUrl = "http://localhost:4000/categories/"+ itemId;
-                    break;
-                case ListName: "periods"
-                    templateUrl = "http://localhost:4000/periods/"+ itemId;
-                    break;
-                case ListName: "competitions"
-                    templateUrl = "http://localhost:4000/competitions/"+ itemId;
-                    break;
-                case ListName: "images"
-                    templateUrl = "http://localhost:4000/images/"+ itemId;
-                    break;
-                default:
-                    templateUrl = "";
-                    break;
-            }
-
             var items = $http({
-                url: templateUrl,
+                url: utils.getTemplateURL(ListName) + "/" + itemId,
                 method: "PUT",
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
@@ -115,27 +79,8 @@
         };
 
         utils.deleteListItem = function (ListName, itemId) {
-            var templateUrl = "";
-            switch (ListName) {
-                case ListName: "categories"
-                    templateUrl = "http://localhost:4000/categories/"+ itemId;
-                    break;
-                case ListName: "periods"
-                    templateUrl = "http://localhost:4000/periods/"+ itemId;
-                    break;
-                case ListName: "competitions"
-                    templateUrl = "http://localhost:4000/competitions/"+ itemId;
-                    break;
-                case ListName: "images"
-                    templateUrl = "http://localhost:4000/images/"+ itemId;
-                    break;
-                default:
-                    templateUrl = "";
-                    break;
-            }
-
             var items = $http({
-                url: templateUrl,
+                url: utils.getTemplateURL(ListName) + "/" + itemId,
                 method: "DELETE",
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
