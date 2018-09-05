@@ -39,6 +39,9 @@
                 case "images":
                     templateUrl = "http://localhost:4000/images";
                     break;
+                case "parameters":
+                    templateUrl = "http://localhost:4000/parameters";
+                    break;
                 default:
                     templateUrl = "";
                     break;

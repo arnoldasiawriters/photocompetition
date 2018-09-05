@@ -10,14 +10,21 @@
         var ctrl = this;
         ctrl.menuItems = UtilitiesService.menuItems(5);
         ctrl.pageTitle = "BARAZA PHOTO COMPETITION - ADMINISTRATION (PARAMETERS)";
-        ctrl.parameters = ParametersService.getParameters();
-        console.log( ctrl.parameters);
+        
+        ParametersService
+            .fetchAll()
+            .then(function (parameters) {                
+                ctrl.parameters = _.orderBy(parameters, ['id'], ['asc']);
+            })
+            .catch(function (error) {
+                console.log("Error: ", error.message);
+            });
         
         ctrl.update = function () {
             ParametersService
             .updateParameters(ctrl.parameters)
             .then(function (parameters) {
-                ctrl.parameters = parameters;
+                ctrl.parameters = _.orderBy(parameters, ['id'], ['asc']);
                 growl.success('Parameter values updated successfully!', {
                     referenceId: 1
                 });

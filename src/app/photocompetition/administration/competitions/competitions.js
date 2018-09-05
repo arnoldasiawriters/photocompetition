@@ -57,7 +57,7 @@
                         });
                 });
         };
-
+ 
         ctrl.editCompetition = function (competition) {
             initCompetitions = angular.copy(ctrl.competitions);
             var competitions = {};
