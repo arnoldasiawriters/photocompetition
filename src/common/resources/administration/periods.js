@@ -92,7 +92,7 @@
                                 deferred.reject(error);
                             });
                     } else {
-                        svc.error.message = "Provided Periods is already registered!";
+                        svc.error.message = "Provided Period is already registered!";
                         deferred.reject(svc.error);
                     }
                 });

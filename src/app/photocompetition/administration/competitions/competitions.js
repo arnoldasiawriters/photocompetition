@@ -6,22 +6,44 @@
         .controller('CompetitionsController', CompetitionsController);
 
     CompetitionsController.$inject = ['UtilitiesService', 'growl', 'CompetitionsService',
-        '$dialog', '$dialogConfirm'];
+        '$q', '$dialog', '$dialogConfirm', 'CategoriesService', 'PeriodsService'];
     function CompetitionsController(UtilitiesService, growl, CompetitionsService,
-        $dialog, $dialogConfirm) {
+        $q, $dialog, $dialogConfirm, CategoriesService, PeriodsService) {
+        var initCompetitions = [];
         var ctrl = this;
         ctrl.menuItems = UtilitiesService.menuItems(5);
         ctrl.pageTitle = "BARAZA PHOTO COMPETITION - ADMINISTRATION (COMPETITIONS)";
-        ctrl.competitions = CompetitionsService.getCompetitions().sort();
         ctrl.btnAddHref = "#addCompetition";
+        ctrl.competition = {};
+
+        var promises = [];
+        promises.push(CompetitionsService.fetchAll());
+        promises.push(CategoriesService.fetchAll());
+        promises.push(PeriodsService.fetchAll());
+        $q.all(promises)
+            .then(function (promiseResults) {
+                ctrl.competitions = _.orderBy(promiseResults[0], ['name'], ['asc']);
+                ctrl.categories = _.orderBy(promiseResults[1], ['name'], ['asc']);
+                ctrl.periods = _.orderBy(promiseResults[2], ['name'], ['desc']);
+            })
+            .catch(function (error) {
+                console.log("Error: ", error);
+                growl.error(error.message, {
+                    referenceId: 1
+                });
+            });
 
         ctrl.addCompetition = function () {
-            $dialog('app/photocompetition/administration/competitions/competitions-add.tpl.html', 'md')
+            var competitions = {};
+            competitions.categories = ctrl.categories;
+            competitions.periods = ctrl.periods;
+            var competitionDW = { scopeVariableName: 'competitions', dataObject: competitions };
+            $dialog('app/photocompetition/administration/competitions/competitions-add.tpl.html', 'lg', competitionDW)
                 .then(function (competition) {
                     CompetitionsService
                         .addCompetition(competition)
                         .then(function (competitions) {
-                            ctrl.competitions = competitions.sort();
+                            ctrl.competitions = _.orderBy(competitions, ['name'], ['asc']);
                             growl.success('Competition saved successfully!', {
                                 referenceId: 1
                             });
@@ -36,20 +58,26 @@
                 });
         };
 
-        ctrl.editCompetition = function (competitionOld) {
-            var competitionDW = { scopeVariableName: 'competition', dataObject: competitionOld };
-            $dialog('app/photocompetition/administration/competitions/competitions-edit.tpl.html', 'md', competitionDW)
-                .then(function (competitionNew) {
+        ctrl.editCompetition = function (competition) {
+            initCompetitions = angular.copy(ctrl.competitions);
+            var competitions = {};
+            competitions.competition = competition;
+            competitions.categories = ctrl.categories;
+            competitions.periods = ctrl.periods;            
+            var competitionDW = { scopeVariableName: 'competitions', dataObject: competitions };
+            $dialog('app/photocompetition/administration/competitions/competitions-edit.tpl.html', 'lg', competitionDW)
+                .then(function (competition) {
                     CompetitionsService
-                        .editCompetition(competitionOld, competitionNew)
+                        .editCompetition(competition)
                         .then(function (competitions) {
-                            ctrl.competitions = competitions.sort();
+                            ctrl.competitions = _.orderBy(competitions, ['name'], ['asc']);
                             growl.success('Competition updated successfully!', {
                                 referenceId: 1
                             });
                         })
                         .catch(function (error) {
                             if (error) {
+                                ctrl.competitions = initCompetitions;
                                 growl.error(error.message, {
                                     referenceId: 1
                                 });
@@ -60,12 +88,12 @@
 
         ctrl.deleteCompetition = function (competition) {
             if (competition) {
-                $dialogConfirm('Are you sure you want to delete this record (' + competition + ' )', 'Delete Competition')
+                $dialogConfirm('Are you sure you want to delete this record (' + competition.name + ' )', 'Delete Competition')
                     .then(function () {
                         CompetitionsService
                             .removeCompetition(competition)
                             .then(function (competitions) {
-                                ctrl.competitions = competitions.sort();
+                                ctrl.competitions = _.orderBy(competitions, ['name'], ['asc']);
                                 growl.success('Competition deleted successfully!', {
                                     referenceId: 1
                                 });

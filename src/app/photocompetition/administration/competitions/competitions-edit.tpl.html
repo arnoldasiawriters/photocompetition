@@ -10,18 +10,76 @@
                 </div>
                 <form method="post" name="frm" novalidate>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label class="control-label requiredField">
-                                Competition Name:<span class="asteriskField">*</span>
-                            </label>
-                            <input class="form-control" type="text" ng-model="competition" required autofocus>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label requiredField">
+                                    Competition Name:<span class="asteriskField">*</span>
+                                </label>
+                                <input class="form-control" type="text" ng-model="competitions.competition.name" required autofocus readonly>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label requiredField">
+                                    Competition Category:<span class="asteriskField">*</span>
+                                </label>
+                                <select ng-model="competitions.competition.category" ng-options="x.name for x in competitions.categories track by x.id" class="select form-control">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="control-label requiredField">
+                                    Competition Year:<span class="asteriskField">*</span>
+                                </label>
+                                <select ng-model="competitions.competition.period" ng-options="x.name for x in competitions.periods track by x.id" class="select form-control">
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label requiredField">
+                                    Start Date:<span class="asteriskField">*</span>
+                                </label>
+                                <input ng-model="competitions.competition.startdate" class="form-control" placeholder="MM/DD/YYYY" type="date"  required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="control-label requiredField">
+                                    End Date:<span class="asteriskField">*</span>
+                                </label>
+                                <input ng-model="competitions.competition.enddate" class="form-control" type="date" placeholder="MM/DD/YYYY" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label requiredField">
+                                    End of Upload Date:<span class="asteriskField">*</span>
+                                </label>
+                                <input ng-model="competitions.competition.uploadenddate" class="form-control" type="date" placeholder="MM/DD/YYYY"  required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="control-label requiredField">
+                                    End of Selection Date:<span class="asteriskField">*</span>
+                                </label>
+                                <input ng-model="competitions.competition.selectionenddate" class="form-control" type="date" placeholder="MM/DD/YYYY" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label requiredField">
+                                    End of Voting Date:<span class="asteriskField">*</span>
+                                </label>
+                                <input ng-model="competitions.competition.votingenddate" class="form-control" type="date" placeholder="MM/DD/YYYY" required>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
                             <div>
-                                <button class="btn btn-success " name="submit" type="submit" ng-click="submit(frm, competition);" ng-disabled="!frm.$valid">
-                                    Update and close
+                                <button class="btn btn-success " name="submit" type="submit" ng-click="submit(frm, competitions.competition);" ng-disabled="!frm.$valid">
+                                    Save and close
                                 </button>
                                 <button class="btn btn-warning " name="submit" type="submit" ng-click="cancel()">
                                     Cancel
