@@ -19,7 +19,7 @@
         CategoriesService
             .fetchAll()
             .then(function (categories) {
-                ctrl.categories = _.sortBy(categories, [function (o) { return o.name; }]);
+                ctrl.categories = _.orderBy(categories, ['name'], ['asc']);
             })
             .catch(function (error) {
                 console.log("Error: ", error.message);
@@ -31,7 +31,7 @@
                     CategoriesService
                         .addCategory(category)
                         .then(function (categories) {
-                            ctrl.categories = _.sortBy(categories, [function (o) { return o.name; }]);
+                            ctrl.categories = _.orderBy(categories, ['name'], ['asc']);
                             growl.success('Category saved successfully!', {
                                 referenceId: 1
                             });
@@ -54,7 +54,7 @@
                     CategoriesService
                         .editCategory(category)
                         .then(function (categories) {
-                            ctrl.categories = _.sortBy(categories, [function (o) { return o.name; }]);
+                            ctrl.categories = _.orderBy(categories, ['name'], ['asc']);
                             growl.success('Category updated successfully!', {
                                 referenceId: 1
                             });
@@ -77,7 +77,7 @@
                         CategoriesService
                             .removeCategory(category)
                             .then(function (categories) {
-                                ctrl.categories = _.sortBy(categories, [function (o) { return o.name; }]);
+                                ctrl.categories = _.orderBy(categories, ['name'], ['asc']);
                                 growl.success('Category deleted successfully!', {
                                     referenceId: 1
                                 });

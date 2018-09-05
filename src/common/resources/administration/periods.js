@@ -4,8 +4,8 @@
     angular
         .module('resources.admin.periods', [])
         .service('PeriodsService', PeriodsService);
-    PeriodsService.$inject = ['$q'];
-    function PeriodsService($q) {
+    PeriodsService.$inject = ['$q', 'UtilitiesService'];
+    function PeriodsService($q, UtilitiesService) {
         var svc = this;
         var periodsList = null;
         svc.error = { message: "" };
@@ -69,7 +69,7 @@
          * Function for editing a period in the periods model. 
          * It takes parameter @param  {} period which is the new period.
          */
-        svc.editCategory = function (period) {
+        svc.editPeriod = function (period) {
             var deferred = $q.defer();
             svc
                 .fetchAll().then(function (periods) {
@@ -103,7 +103,7 @@
          * Function for deleting a period from the period list.
          * It takes @param  {} period which is to be deleted
          */
-        svc.removeCategory = function (period) {
+        svc.removePeriod = function (period) {
             var deferred = $q.defer();
             svc
                 .fetchAll()

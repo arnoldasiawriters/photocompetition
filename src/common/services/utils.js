@@ -27,16 +27,16 @@
         utils.getTemplateURL = function (ListName) {
             var templateUrl = "";
             switch (ListName) {
-                case ListName: "categories"
+                case "categories":
                     templateUrl = "http://localhost:4000/categories";
                     break;
-                case ListName: "periods"
+                case "periods":
                     templateUrl = "http://localhost:4000/periods";
                     break;
-                case ListName: "competitions"
+                case "competitions":
                     templateUrl = "http://localhost:4000/competitions";
                     break;
-                case ListName: "images"
+                case "images":
                     templateUrl = "http://localhost:4000/images";
                     break;
                 default:

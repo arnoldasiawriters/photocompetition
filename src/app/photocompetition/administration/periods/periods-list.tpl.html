@@ -1,4 +1,4 @@
-<div ng-controller="PeriodsController as ctrl">
+<div class="margin-top">
     <main-menu menu-items="ctrl.menuItems"></main-menu>
     <div class="row">
         <div class="col-md-10">
@@ -24,15 +24,13 @@
                                 <table class="table table-bordered table-condensed table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Period Name</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr dir-paginate="period in ctrl.periods | itemsPerPage: 10">
-                                            <td>{{$index+1}}.</td>
-                                            <td>{{period}}</td>
+                                        <tr dir-paginate="period in ctrl.periods | itemsPerPage: 10 track by period.id">
+                                            <td>{{period.name}}</td>
                                             <td><a class="btn btn-xs btn-success" ng-click="ctrl.editPeriod(period);">
                                                     Edit</a>
                                                 <a class="btn btn-xs btn-success" ng-click="ctrl.deletePeriod(period);">

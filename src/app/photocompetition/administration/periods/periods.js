@@ -9,6 +9,7 @@
         '$dialog', '$dialogConfirm'];
     function PeriodsController(PeriodsService, UtilitiesService, growl,
         $dialog, $dialogConfirm) {
+        var initPeriods = [];
         var ctrl = this;
         ctrl.menuItems = UtilitiesService.menuItems(5);
         ctrl.pageTitle = "BARAZA PHOTO COMPETITION - ADMINISTRATION (PERIODS)";
@@ -17,7 +18,7 @@
         PeriodsService
             .fetchAll()
             .then(function (periods) {
-                ctrl.periods = _.sortBy(periods, [function (o) { return o.name; }]);
+                ctrl.periods = _.orderBy(periods, ['name'], ['desc']);
             })
             .catch(function (error) {
                 console.log("Error: ", error.message);
@@ -26,10 +27,10 @@
         ctrl.addPeriod = function () {
             $dialog('app/photocompetition/administration/periods/periods-add.tpl.html', 'md')
                 .then(function (period) {
-                    CategoriesService
+                    PeriodsService
                         .addPeriod(period)
                         .then(function (periods) {
-                            ctrl.periods = _.sortBy(periods, [function (o) { return o.name; }]);
+                            ctrl.periods = _.orderBy(periods, ['name'], ['desc']);
                             growl.success('Period saved successfully!', {
                                 referenceId: 1
                             });
@@ -52,7 +53,7 @@
                     PeriodsService
                         .editPeriod(period)
                         .then(function (periods) {
-                            ctrl.periods = _.sortBy(periods, [function (o) { return o.name; }]);
+                            ctrl.periods = _.orderBy(periods, ['name'], ['desc']);
                             growl.success('Period updated successfully!', {
                                 referenceId: 1
                             });
@@ -68,15 +69,15 @@
                 });
         };
 
-        ctrl.deleteCategory = function (category) {
-            if (category) {
-                $dialogConfirm('Are you sure you want to delete this record (' + category.name + ' )', 'Delete Category')
+        ctrl.deletePeriod = function (period) {
+            if (period) {
+                $dialogConfirm('Are you sure you want to delete this record (' + period.name + ' )', 'Delete Category')
                     .then(function () {
-                        CategoriesService
-                            .removeCategory(category)
-                            .then(function (categories) {
-                                ctrl.categories = _.sortBy(categories, [function (o) { return o.name; }]);
-                                growl.success('Category deleted successfully!', {
+                        PeriodsService
+                            .removePeriod(period)
+                            .then(function (periods) {
+                                ctrl.periods = _.orderBy(periods, ['name'], ['desc']);
+                                growl.success('Period deleted successfully!', {
                                     referenceId: 1
                                 });
                             });

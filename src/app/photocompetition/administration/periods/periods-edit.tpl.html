@@ -14,7 +14,7 @@
                             <label class="control-label requiredField">
                                 Period Name:<span class="asteriskField">*</span>
                             </label>
-                            <input class="form-control" type="text" ng-model="period" required autofocus>
+                            <input class="form-control" type="text" ng-model="period.name" ng-model-options="{updateOn:'submit'}" required autofocus>
                         </div>
                     </div>
                     <div class="modal-footer">
