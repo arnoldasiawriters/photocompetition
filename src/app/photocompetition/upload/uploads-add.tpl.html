@@ -15,13 +15,6 @@
                             <form method="post">
                                 <div class="form-group ">
                                     <label class="control-label requiredField">
-                                        Competition Name:<span class="asteriskField">*</span>
-                                    </label>
-                                    <select ng-model="ctrl.photo.competition" ng-options="x for x in ctrl.competitions" class="select form-control" ng-init="ctrl.photo.competition = ctrl.competitions[0]">
-                                    </select>
-                                </div>
-                                <div class="form-group ">
-                                    <label class="control-label requiredField">
                                         Competition Year:<span class="asteriskField">*</span>
                                     </label>
                                     <select ng-model="ctrl.photo.period" ng-options="x for x in ctrl.periods" class="select form-control" ng-init="ctrl.photo.period = ctrl.periods[0]">
@@ -35,13 +28,21 @@
                                     </select>
                                 </div>
                                 <div class="form-group ">
+                                    <label class="control-label requiredField">
+                                        Competition Name:<span class="asteriskField">*</span>
+                                    </label>
+                                    <select ng-model="ctrl.photo.competition" ng-options="x for x in ctrl.competitions" class="select form-control" ng-init="ctrl.photo.competition = ctrl.competitions[0]">
+                                    </select>
+                                </div>
+                                <div class="form-group ">
                                     <label class="control-label">Photo Description:</label>
                                     <textarea ng-model="ctrl.photo.description" class="form-control" cols="40" rows="5"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label class="btn btn-info btn-block btn-flat">
                                         Click here to Select Photo
-                                        <input ng-model="ctrl.photo.photo" custom-on-change="ctrl.uploadedPhoto" class="hide" id="selectphotos" type="file" accept="image/*" />
+                                        <input ng-model="ctrl.photo.photo" custom-on-change="ctrl.uploadedPhoto" class="hide" id="selectphotos" type="file" accept="image/*"
+                                        />
                                     </label>
                                 </div>
                                 <div class="form-group centerImage">
@@ -49,7 +50,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button ng-click="ctrl.submit()" class="btn btn-success btn-flat pull-right" name="submit" type="submit">Submit Photo</button>
+                                    <button ng-click="ctrl.submit()" class="btn btn-success btn-flat pull-right" name="submit" type="submit">Submit
+                                        Photo</button>
                                 </div>
                             </form>
                         </div>

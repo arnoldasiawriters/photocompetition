@@ -23,6 +23,9 @@
             })
             .catch(function (error) {
                 console.log("Error: ", error.message);
+                growl.error(error.message, {
+                    referenceId: 1
+                });
             });
 
         ctrl.addCategory = function () {
