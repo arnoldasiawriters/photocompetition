@@ -24,7 +24,7 @@
                                         <div class="panel panel-info">
                                             <div class="panel-body">
                                                 <form method="post">
-                                                    <div class="form-group" ng-repeat="parameter in ctrl.parameters">
+                                                    <div class="form-group" ng-repeat="parameter in ctrl.parameters track by parameter.id">
                                                         <label class="control-label requiredField">
                                                             {{parameter.title}}:<span class="asteriskField">*</span>
                                                         </label>

@@ -9,7 +9,7 @@
     function AddButtonDirective() {
         var ddo = {
             restrict: 'E',
-            templateUrl: 'app/photocompetition/administration/templates/administration-addbtn.tpl.html',
+            templateUrl: 'app/photocompetition/templates/administration-addbtn.tpl.html',
             scope: {
                 btnAddHref: '='
             }
@@ -20,7 +20,7 @@
     function AdminMenuDirective() {
         var ddo = {
             restrict: 'E',
-            templateUrl: 'app/photocompetition/administration/templates/competitions-adminmenu.tpl.html' 
+            templateUrl: 'app/photocompetition/templates/competitions-adminmenu.tpl.html' 
         };
         return ddo;
     }
