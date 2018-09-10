@@ -8,13 +8,14 @@
     ImagesService.$inject = ['$q', 'UtilitiesService'];
     function ImagesService($q, UtilitiesService) {
         var svc = this;
-        var imagesList = [];
+        var imagesList = null;
         svc.error = { message: "" };
 
         /**
          * Function for fetching all images in images model
          */
         svc.fetchAll = function () {
+            imagesList = [];
             var deferred = $q.defer();
             UtilitiesService
                 .getListItems("images")
@@ -30,6 +31,7 @@
                         image.selected = v.selected;
                         image.voteCount = v.voteCount;
                         image.competition = { "id": v.competition.id, "name": v.competition.name };
+                        image.category = {"id": v.category.id, "name": v.category.name}
                         imagesList.push(image);
                     });
                     deferred.resolve(imagesList);
@@ -54,6 +56,7 @@
                 image.selected = false;
                 image.voteCount = 0;
                 image.competition = { "id": photo.competition.id, "name": photo.competition.name };
+                image.category = {"id": photo.category.id, "name": photo.category.name}
 
                 UtilitiesService
                     .createListItem("images", image)
@@ -73,16 +76,15 @@
         };
 
         /**
-        * Function for getting images submitted for the competition. It takes @param  {} competition
+        * Function for getting images submitted for the competition category. It takes @param  {} category
         */
-        svc.getSelectionImages = function (competition) {
+        svc.getSelectionImages = function (category) {            
             var deferred = $q.defer();
             svc.fetchAll()
                 .then(function (images) {
-                   
                     var selectionImages = _.filter(images, function (o) {
-                        return o.competition.id == competition.id;
-                    });
+                        return o.category.id === category.id;
+                    });                    
                     deferred.resolve(selectionImages);
                 }).catch(function (error) {
                     deferred.reject(error);
@@ -105,8 +107,9 @@
                     .catch(function (error) {
                         deferred.reject(error);
                     });
-                deferred.resolve(imagesList);
             });
+            deferred.resolve(selectedImages, imagesList);
+            deferred.resolve(imagesList);
             return deferred.promise;
         };
     }

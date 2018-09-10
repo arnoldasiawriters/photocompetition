@@ -2,52 +2,31 @@
     'use strict';
 
     angular
-        .module('selection', ['services.utilities', 'resources.selection'])
+        .module('selection', ['services.utilities', 'resources.images'])
         .controller('SelectionController', SelectionController)
 
-    SelectionController.$inject = ['UtilitiesService', 'growl', 'ImagesService',
-        '$window', 'CompetitionsService', 'CategoriesService', 'PeriodsService',
-        'ParametersService', '$dialogAlert', '$q'];
+    SelectionController.$inject = ['UtilitiesService', 'growl', 'ImagesService', 'CompetitionsService',
+        'CategoriesService', 'ParametersService', '$q'];
 
-    function SelectionController(UtilitiesService, growl, ImagesService,
-        $window, CompetitionsService, CategoriesService, PeriodsService, ParametersService,
-        $dialogAlert, $q) {
+    function SelectionController(UtilitiesService, growl, ImagesService, CompetitionsService,
+        CategoriesService, ParametersService, $q) {
+
         var ctrl = this;
         ctrl.menuItems = UtilitiesService.menuItems(2);
         ctrl.pageTitle = "BARAZA PHOTO COMPETITION - PHOTO SELECTION";
 
         var promises = [];
-        promises.push(CategoriesService.fetchAll());
-        promises.push(PeriodsService.fetchAll());
         promises.push(CompetitionsService.fetchAll());
+        promises.push(CategoriesService.fetchAll());
 
         $q.all(promises)
             .then(function (promiseResults) {
-                ctrl.categories = _.orderBy(promiseResults[0], ['name'], ['asc']);
-                ctrl.category = ctrl.categories[0];
-                ctrl.periods = _.orderBy(promiseResults[1], ['name'], ['desc']);
-                ctrl.period = ctrl.periods[0];
-                ctrl.allCompetitions = _.orderBy(promiseResults[2], ['name'], ['asc']);
-                fillCompetitionNames();
-                ImagesService
-                    .getSelectionImages(ctrl.competition)
-                    .then(function (selectionImages) {
-                        ctrl.selectionImages = selectionImages;
-                        _.forEach(ctrl.selectionImages, function (o) {
-                            if (!o.selected) {
-                                o.imageClass = "";
-                            } else {
-                                o.imageClass = "selectImage";
-                            }
-                        });
-                        ctrl.selectedCount = _.filter(ctrl.selectionImages, function (o) {
-                            if (o.selected == true) return o
-                        }).length;
-                        ctrl.selectionNotification = "Selected " + ctrl.selectedCount + " out of " + ctrl.maxSelectCount + " (Maximum Selection)";
-                    })
-                    .catch(function (error) {
-                        console.log("Error: ", error.message);
-                    });
+                ctrl.competitions = _.orderBy(promiseResults[0], ['name'], ['asc']);
+                ctrl.competition = ctrl.competitions[0];
+                ctrl.allCategories = promiseResults[1];
+                ctrl.selectionImages = [];
+                fillCategoryNames();
+                fillImages();
             })
             .catch(function (error) {
                 console.log("Error: ", error.message);
@@ -56,10 +35,16 @@
                 });
             });
 
-        ctrl.selectChanged = function () {
-            fillCompetitionNames();
+        ctrl.competitionChanged = function () {
+            ctrl.selectionImages = [];
+            fillCategoryNames();
+            fillImages();
         };
-        
+
+        ctrl.categoryChanged = function () {
+            fillImages();
+        };
+
         ParametersService
             .getParameterByValue('Photo selection count per category')
             .then(function (param) {
@@ -109,17 +94,37 @@
                 });
         };
 
-        function fillCompetitionNames() {
-            if (ctrl.category && ctrl.period && ctrl.allCompetitions.length > 0) {
-                ctrl.competitions = _.filter(ctrl.allCompetitions, function (o) {
-                    return o.category.id == ctrl.category.id && o.period.id == ctrl.period.id;
+        function fillCategoryNames() {
+            if (ctrl.competition && ctrl.allCategories.length > 0) {
+                ctrl.categories = _.filter(ctrl.allCategories, function (o) {
+                    return o.competition.id == ctrl.competition.id;
                 });
-                ctrl.competition = ctrl.competitions[0];
+                ctrl.category = ctrl.categories[0];
             }
         }
 
-        ctrl.competitionChanged = function () {
-            //ctrl.selectionImages.shift();
+        function fillImages() {
+            if (ctrl.category) {
+                ImagesService
+                .getSelectionImages(ctrl.category)
+                .then(function (selectionImages) {
+                    ctrl.selectionImages = selectionImages;
+                    _.forEach(ctrl.selectionImages, function (o) {
+                        if (!o.selected) {
+                            o.imageClass = "";
+                        } else {
+                            o.imageClass = "selectImage";
+                        }
+                    });
+                    ctrl.selectedCount = _.filter(ctrl.selectionImages, function (o) {
+                        if (o.selected == true) return o
+                    }).length;
+                    ctrl.selectionNotification = "Selected " + ctrl.selectedCount + " out of " + ctrl.maxSelectCount + " (Maximum Selection)";
+                })
+                .catch(function (error) {
+                    console.log("Error: ", error.message);
+                });
+            }
         };
     }
 })();
