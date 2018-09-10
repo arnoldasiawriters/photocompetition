@@ -31,7 +31,7 @@
                         image.selected = v.selected;
                         image.voteCount = v.voteCount;
                         image.competition = { "id": v.competition.id, "name": v.competition.name };
-                        image.category = {"id": v.category.id, "name": v.category.name}
+                        image.category = { "id": v.category.id, "name": v.category.name }
                         imagesList.push(image);
                     });
                     deferred.resolve(imagesList);
@@ -56,7 +56,7 @@
                 image.selected = false;
                 image.voteCount = 0;
                 image.competition = { "id": photo.competition.id, "name": photo.competition.name };
-                image.category = {"id": photo.category.id, "name": photo.category.name}
+                image.category = { "id": photo.category.id, "name": photo.category.name }
 
                 UtilitiesService
                     .createListItem("images", image)
@@ -78,13 +78,13 @@
         /**
         * Function for getting images submitted for the competition category. It takes @param  {} category
         */
-        svc.getSelectionImages = function (category) {            
+        svc.getSelectionImages = function (category) {
             var deferred = $q.defer();
             svc.fetchAll()
                 .then(function (images) {
                     var selectionImages = _.filter(images, function (o) {
                         return o.category.id === category.id;
-                    });                    
+                    });
                     deferred.resolve(selectionImages);
                 }).catch(function (error) {
                     deferred.reject(error);
@@ -110,6 +110,23 @@
             });
             deferred.resolve(selectedImages, imagesList);
             deferred.resolve(imagesList);
+            return deferred.promise;
+        };
+
+        /**
+        * Function for getting images selected for the competition category for voting. It takes @param  {} category
+        */
+        svc.getVotingImages = function (category) {
+            var deferred = $q.defer();
+            svc.fetchAll()
+                .then(function (images) {
+                    var votingImages = _.filter(images, function (o) {
+                        return o.category.id === category.id && o.selected === true;
+                    });
+                    deferred.resolve(votingImages);
+                }).catch(function (error) {
+                    deferred.reject(error);
+                });
             return deferred.promise;
         };
     }

@@ -17,27 +17,23 @@
                                     <label class="control-label requiredField">
                                         Competition Name:<span class="asteriskField">*</span>
                                     </label>
-                                    <select ng-model="ctrl.competition" ng-options="x for x in ctrl.competitions" class="select form-control" ng-init="ctrl.competition = ctrl.competitions[0]">
+                                    <select ng-model="ctrl.competition" ng-change="ctrl.competitionChanged();" ng-options="x.name for x in ctrl.competitions track by x.id"
+                                        class="select form-control" required>
                                     </select>
                                 </div>
-                                <div class="form-group ">
-                                    <label class="control-label requiredField">
-                                        Competition Year:<span class="asteriskField">*</span>
-                                    </label>
-                                    <select ng-model="ctrl.period" ng-options="x for x in ctrl.periods" class="select form-control" ng-init="ctrl.period = ctrl.periods[0]">
-                                    </select>
-                                </div>
+
                                 <div class="form-group ">
                                     <label class="control-label requiredField">
                                         Photo Category:<span class="asteriskField">*</span>
                                     </label>
-                                    <select ng-model="ctrl.category" ng-options="x for x in ctrl.categories" class="select form-control" ng-init="ctrl.category = ctrl.categories[0]">
+                                    <select ng-model="ctrl.category" ng-change="ctrl.categoryChanged();" ng-options="x.name for x in ctrl.categories track by x.id"
+                                        class="select form-control" required>
                                     </select>
                                 </div>
 
-                                <div class="row">
+                                <div class="row" ng-if="ctrl.votingImages.length > 0">
                                     <div class="form-group col-md-8 col-md-offset-2">
-                                        <flex-slider slider-id="slider" flex-slide="image in ctrl.images track by $index" animation="fade" animation-loop="false"
+                                        <flex-slider slider-id="slider" flex-slide="image in ctrl.votingImages track by $index" animation="fade" animation-loop="false"
                                             sync="#carousel" slideshow="false" control-nav="false" init-delay="100">
                                             <li>
                                                 <img ng-src="{{image.image}}">
@@ -46,8 +42,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <flex-slider slider-id="carousel" flex-slide="image in ctrl.images track by $index" animation="slide" animation-loop="false"
+                                <div class="form-group" ng-if="ctrl.votingImages.length > 0">
+                                    <flex-slider slider-id="carousel" flex-slide="image in ctrl.votingImages track by $index" animation="slide" animation-loop="false"
                                         item-width="200" item-margin="5" as-nav-for="#slider" slideshow="false" control-nav="false"
                                         keyboard="true">
                                         <li>

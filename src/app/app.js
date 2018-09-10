@@ -22,7 +22,7 @@
                 controller: 'SelectionController as ctrl'
             })
             .when('/addVoting', {
-                templateUrl: 'app/photocompetition/voting/voting-add.tpl.html',
+                templateUrl: 'app/photocompetition/images/images-voting.tpl.html',
                 controller: 'VotingController as ctrl'
             })
             .when('/addResults', {
