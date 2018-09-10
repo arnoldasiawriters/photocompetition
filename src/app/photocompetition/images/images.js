@@ -7,30 +7,26 @@
         .module('images', ['services.utilities', 'resources.images'])
         .controller('ImagesController', ImagesController);
 
-    ImagesController.$inject = ['$scope', '$window', '$q', 'UtilitiesService',
-        'growl', '$dialog', '$dialogAlert', 'CompetitionsService',
-        'CategoriesService', 'PeriodsService', 'ImagesService'];
+    ImagesController.$inject = ['$scope', '$q', 'UtilitiesService', 'growl', 'CompetitionsService',
+        'CategoriesService', 'ImagesService'];
 
-    function ImagesController($scope, $window, $q, UtilitiesService, growl,
-        $dialog, $dialogAlert, CompetitionsService, CategoriesService,
-        PeriodsService, ImagesService) {
+    function ImagesController($scope, $q, UtilitiesService, growl, CompetitionsService,
+        CategoriesService, ImagesService) {
+
         var ctrl = this;
         ctrl.menuItems = UtilitiesService.menuItems(1);
         ctrl.pageTitle = "BARAZA PHOTO COMPETITION - PHOTO UPLOAD";
         ctrl.photo = {};
         var promises = [];
-        promises.push(CategoriesService.fetchAll());
-        promises.push(PeriodsService.fetchAll());
         promises.push(CompetitionsService.fetchAll());
+        promises.push(CategoriesService.fetchAll());
 
         $q.all(promises)
             .then(function (promiseResults) {
-                ctrl.categories = _.orderBy(promiseResults[0], ['name'], ['asc']);
-                ctrl.photo.category = ctrl.categories[0];
-                ctrl.periods = _.orderBy(promiseResults[1], ['name'], ['desc']);
-                ctrl.allCompetitions = _.orderBy(promiseResults[2], ['name'], ['asc']);
-                ctrl.photo.period = ctrl.periods[0];
-                fillCompetitionNames();
+                ctrl.competitions = _.orderBy(promiseResults[0], ['name'], ['asc']);
+                ctrl.photo.competition = ctrl.competitions[0];
+                ctrl.allCategories = promiseResults[1];
+                fillCategoryNames();
             })
             .catch(function (error) {
                 console.log("Error: ", error.message);
@@ -39,8 +35,8 @@
                 });
             });
 
-        ctrl.selectChanged = function () {
-            fillCompetitionNames();
+        ctrl.competitionChanged = function () {
+            fillCategoryNames();
         };
 
         ctrl.uploadedPhoto = function (event) {
@@ -73,12 +69,12 @@
                 });
         };
 
-        function fillCompetitionNames() {
-            if (ctrl.photo.category && ctrl.photo.period && ctrl.allCompetitions.length > 0) {
-                ctrl.competitions = _.filter(ctrl.allCompetitions, function (o) {
-                    return o.category.id == ctrl.photo.category.id && o.period.id == ctrl.photo.period.id;
+        function fillCategoryNames() {
+            if (ctrl.photo.competition && ctrl.allCategories.length > 0) {
+                ctrl.categories = _.filter(ctrl.allCategories, function (o) {
+                    return o.competition.id == ctrl.photo.competition.id;
                 });
-                ctrl.photo.competition = ctrl.competitions[0];
+                ctrl.photo.category = ctrl.categories[0];
             }
         }
     }

@@ -8,7 +8,7 @@
     ImagesService.$inject = ['$q', 'UtilitiesService'];
     function ImagesService($q, UtilitiesService) {
         var svc = this;
-        var imagesList = null;
+        var imagesList = [];
         svc.error = { message: "" };
 
         /**
@@ -16,7 +16,6 @@
          */
         svc.fetchAll = function () {
             var deferred = $q.defer();
-            imagesList = [];
             UtilitiesService
                 .getListItems("images")
                 .then(function (images) {

@@ -12,44 +12,40 @@
                     <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
                     <div class="bootstrap-iso">
                         <div class="container-fluid">
-                            <form method="post">
-                                <div class="form-group ">
-                                    <label class="control-label requiredField">
-                                        Photo Category:<span class="asteriskField">*</span>
-                                    </label>
-                                    <select ng-model="ctrl.photo.category" ng-change="ctrl.selectChanged();" ng-options="x.name for x in ctrl.categories  track by x.id"
-                                        class="select form-control">
-                                    </select>
-                                </div>
-
-                                <div class="form-group ">
-                                    <label class="control-label requiredField">
-                                        Competition Year:<span class="asteriskField">*</span>
-                                    </label>
-                                    <select ng-model="ctrl.photo.period" ng-change="ctrl.selectChanged();" ng-options="x.name for x in ctrl.periods track by x.id"
-                                        class="select form-control">
-                                    </select>
-                                </div>
-
+                            <form method="post" name="frm" novalidate>
                                 <div class="form-group ">
                                     <label class="control-label requiredField">
                                         Competition Name:<span class="asteriskField">*</span>
                                     </label>
-                                    <select ng-model="ctrl.photo.competition" ng-options="x.name for x in ctrl.competitions track by x.id" class="select form-control">
+                                    <select ng-model="ctrl.photo.competition" ng-change="ctrl.competitionChanged();" ng-options="x.name for x in ctrl.competitions track by x.id"
+                                        class="select form-control" required>
                                     </select>
                                 </div>
+
+                                <div class="form-group ">
+                                    <label class="control-label requiredField">
+                                        Photo Category:<span class="asteriskField">*</span>
+                                    </label>
+                                    <select ng-model="ctrl.photo.category" ng-options="x.name for x in ctrl.categories track by x.id" class="select form-control" required>
+                                    </select>
+                                </div>
+
+
                                 <div class="form-group ">
                                     <label class="control-label">Photo Description:</label>
                                     <textarea ng-model="ctrl.photo.description" class="form-control" cols="40" rows="5"></textarea>
                                 </div>
+
                                 <div class="form-group ">
                                     <label class="control-label">Photo Image URL:</label>
-                                    <input type="text" class="form-control" ng-model="ctrl.photo.image">
+                                    <input type="text" class="form-control" ng-model="ctrl.photo.image" required>
                                 </div>
+
                                 <div class="form-group ">
                                     <label class="control-label">Photo Thumbnail URL:</label>
-                                    <input type="text" class="form-control" ng-model="ctrl.photo.thumbnail">
+                                    <input type="text" class="form-control" ng-model="ctrl.photo.thumbnail" required>
                                 </div>
+
                                 <div class="form-group">
                                     <label class="btn btn-info btn-block btn-flat">
                                         Click here to Select Photo
@@ -57,12 +53,13 @@
                                         />
                                     </label>
                                 </div>
+
                                 <div class="form-group centerImage">
                                     <img ng-src="{{uploadedPhotoHref}}" id="uploadedPhotoHref">
                                 </div>
 
                                 <div class="form-group">
-                                    <button ng-click="ctrl.addImage()" class="btn btn-success btn-flat pull-right" name="submit" type="submit">Submit
+                                    <button ng-click="ctrl.addImage()" class="btn btn-success btn-flat pull-right" name="submit" type="submit" ng-disabled="!frm.$valid">Submit
                                         Photo
                                     </button>
                                 </div>
