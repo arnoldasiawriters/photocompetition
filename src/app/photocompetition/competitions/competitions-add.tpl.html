@@ -18,55 +18,38 @@
                                 <input class="form-control" type="text" ng-model="ctrl.competition.Name" required autofocus>
                             </div>
                         </div>
-
                         <div class="row">
-                            <div class="form-group col-md-12">
-                                <label class="control-label requiredField">
-                                    Competition Category:<span class="asteriskField">*</span>
-                                </label>
-                                <select ng-model="ctrl.competition.Category" ng-options="x.name for x in competitions.categories track by x.id" class="select form-control" ng-init="ctrl.competition.Category = competitions.categories[0]">
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label class="control-label requiredField">
-                                    Competition Year:<span class="asteriskField">*</span>
-                                </label>
-                                <select ng-model="ctrl.competition.Period" ng-options="x.name for x in competitions.periods track by x.id" class="select form-control" ng-init="ctrl.competition.Period = competitions.periods[0]">
-                                </select>
-                            </div>
                             <div class="form-group col-md-6">
                                 <label class="control-label requiredField">
                                     Start Date:<span class="asteriskField">*</span>
                                 </label>
-                                <input ng-model="ctrl.competition.StartDate" class="form-control" placeholder="MM/DD/YYYY" type="date"  required>
+                                <input ng-model="ctrl.competition.StartDate" class="form-control" placeholder="MM/DD/YYYY" type="date" required>
                             </div>
-                        </div>
-
-                        <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="control-label requiredField">
                                     End Date:<span class="asteriskField">*</span>
                                 </label>
                                 <input ng-model="ctrl.competition.EndDate" class="form-control" type="date" placeholder="MM/DD/YYYY" required>
                             </div>
+                        </div>
+
+                        <div class="row">
+
                             <div class="form-group col-md-6">
                                 <label class="control-label requiredField">
                                     End of Upload Date:<span class="asteriskField">*</span>
                                 </label>
-                                <input ng-model="ctrl.competition.EndofUploadDate" class="form-control" type="date" placeholder="MM/DD/YYYY"  required>
+                                <input ng-model="ctrl.competition.EndofUploadDate" class="form-control" type="date" placeholder="MM/DD/YYYY" required>
                             </div>
-                        </div>
-
-                        <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="control-label requiredField">
                                     End of Selection Date:<span class="asteriskField">*</span>
                                 </label>
                                 <input ng-model="ctrl.competition.EndofSelectionDate" class="form-control" type="date" placeholder="MM/DD/YYYY" required>
                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="control-label requiredField">
                                     End of Voting Date:<span class="asteriskField">*</span>

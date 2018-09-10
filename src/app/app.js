@@ -5,7 +5,7 @@
      */
     angular
         .module('PhotoCompetitionApp', ['ngRoute', 'customdirectives', 'angular-growl', 'images', 'selection',
-            'voting', 'results', 'categories', 'competitions', 'periods', 'parameters', 'angular-flexslider',
+            'voting', 'results', 'categories', 'competitions', 'parameters', 'angular-flexslider',
             'directives.dirPagination', 'ui.bootstrap', 'ui.bootstrap.dialogs', 'ngAnimate'])
         .config(['growlProvider', GrowlProvider])
         .config(['$routeProvider', RouteProvider]);

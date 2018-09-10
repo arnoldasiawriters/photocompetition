@@ -12,9 +12,16 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label requiredField">
-                                Category Name:<span class="asteriskField">*</span>
+                                Photo Category Name:<span class="asteriskField">*</span>
                             </label>
-                            <input class="form-control" type="text" ng-model="category.name" ng-model-options="{updateOn:'submit'}" required autofocus>
+                            <input class="form-control" type="text" ng-model="category.name" required autofocus readonly>
+                        </div>
+                        <div class="form-group ">
+                            <label class="control-label requiredField">
+                                Competition Name:<span class="asteriskField">*</span>
+                            </label>
+                            <select ng-model="category.competition" ng-options="x.name for x in category.competitions track by x.id" class="select form-control">
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">

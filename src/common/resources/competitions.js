@@ -25,8 +25,6 @@
                         var competition = {};
                         competition.id = v.id;
                         competition.name = v.Name;
-                        competition.category = { "id": v.Category.id, "name": v.Category.name };
-                        competition.period = { "id": v.Period.id, "name": v.Period.name };
                         competition.startdate = new Date(v.StartDate);
                         competition.enddate = new Date(v.EndDate);
                         competition.uploadenddate = new Date(v.EndofUploadDate);
@@ -58,8 +56,6 @@
                             .then(function (response) {
                                 competition.id = response.data.id;
                                 competition.name = response.data.Name;
-                                competition.category = { "id": response.data.Category.id, "name": response.data.Category.name };
-                                competition.period = { "id": response.data.Period.id, "name": response.data.Period.name };
                                 competition.startdate = new Date(response.data.StartDate);
                                 competition.enddate = new Date(response.data.EndDate);
                                 competition.uploadenddate = new Date(response.data.EndofUploadDate);
@@ -88,8 +84,6 @@
             var comp = {};
             comp.id = competition.id;
             comp.Name = competition.name;
-            comp.Category = competition.category;
-            comp.Period = competition.period;
             comp.StartDate = competition.startdate;
             comp.EndDate = competition.enddate;
             comp.EndofUploadDate = competition.uploadenddate;

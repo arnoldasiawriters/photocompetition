@@ -20,17 +20,19 @@
                                     </a>
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-12 margin-top">
                                 <table class="table table-bordered table-condensed table-striped table-hover">
                                     <thead>
                                         <tr>
+                                                <th>Competition Name</th>
                                             <th>Category Name</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr dir-paginate="category in ctrl.categories | itemsPerPage: 10 track by category.id">
+                                            <td>{{category.competition.name}}</td>
                                             <td>{{category.name}}</td>
                                             <td>
                                                 <a class="btn btn-xs btn-success" ng-click="ctrl.editCategory(category);">

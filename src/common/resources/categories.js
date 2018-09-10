@@ -17,13 +17,14 @@
             var deferred = $q.defer();
             categoriesList = [];
             UtilitiesService
-                .getListItems("categories")
+                .getListItems("photocategories")
                 .then(function (categories) {
                     categories = categories.data;
                     _.forEach(categories, function (v, k) {
                         var category = {};
                         category.id = v.id;
                         category.name = v.name;
+                        category.competition = { "id": v.competition.id, "name": v.competition.name };
                         categoriesList.push(category);
                     });
                     deferred.resolve(categoriesList);
@@ -37,28 +38,31 @@
         /**
          * Function for adding category in the model. It takes @param  {} category
          */
-        svc.addCategory = function (categoryName) {
+        svc.addCategory = function (cat) {
             var deferred = $q.defer();
             svc
                 .fetchAll().then(function (categories) {
-                    var categoryExists = _.some(categories, function (cat) {
-                        return cat.name === categoryName;
+                    var categoryExists = _.some(categories, function (o) {
+                        return o.name === cat.name && o.competition.name === cat.competition.name;
                     });
+
                     if (!categoryExists) {
                         var category = {};
-                        category.name = categoryName;
+                        category.name = cat.name;
+                        category.competition = { "id": cat.competition.id, "name": cat.competition.name };
+
                         UtilitiesService
-                            .createListItem("categories", category)
+                            .createListItem("photocategories", category)
                             .then(function (response) {
-                                category.id = response.data.id;
-                                categoriesList.push(category);
+                                cat.id = response.data.id;
+                                categoriesList.push(cat);
                                 deferred.resolve(categoriesList);
                             })
                             .catch(function (error) {
                                 deferred.reject(error);
                             });
                     } else {
-                        svc.error.message = "Category is already registered!";
+                        svc.error.message = "Provided Category for competition " + cat.competition.name + " is already registered!";
                         deferred.reject(svc.error);
                     }
                 });
@@ -69,21 +73,21 @@
          * Function for editing a category in the categories model. 
          * It takes parameter @param  {} category which is the new category.
          */
-        svc.editCategory = function (category) {
+        svc.editCategory = function (cat) {
             var deferred = $q.defer();
             svc
                 .fetchAll().then(function (categories) {
-                    var categoryExists = _.some(categories, function (cat) {
-                        return cat.name === category.name;
+                    var categoryExists = _.some(categories, function (o) {
+                        return o.name === cat.name && o.competition.name === cat.competition.name;
                     });
 
                     if (!categoryExists) {
                         UtilitiesService
-                            .updateListItem("categories", category.id, category)
+                            .updateListItem("photocategories", cat.id, cat)
                             .then(function (response) {
                                 _.forEach(categoriesList, function (o) {
-                                    if (o.id == category.id) {
-                                        o.name = category.name;
+                                    if (o.id == cat.id) {
+                                        o.competition = cat.competition;
                                     }
                                 });
                                 deferred.resolve(categoriesList);
@@ -92,7 +96,7 @@
                                 deferred.reject(error);
                             });
                     } else {
-                        svc.error.message = "Provided Category is already registered!";
+                        svc.error.message = "Provided Category for competition " + cat.competition.name + " is already registered!";
                         deferred.reject(svc.error);
                     }
                 });
@@ -108,13 +112,12 @@
             svc
                 .fetchAll()
                 .then(function (categories) {
-                    var categoryExists = _.some(categories, function (cat) {
-                        return cat.name === category.name;
+                    var categoryExists = _.some(categories, function (o) {
+                        return o.name === category.name && o.competition.name === category.competition.name;
                     });
                     if (categoryExists) {
-
                         UtilitiesService
-                            .deleteListItem("categories", category.id)
+                            .deleteListItem("photocategories", category.id)
                             .then(function (response) {
                                 _.remove(categoriesList, function (o) {
                                     return o.id === category.id;

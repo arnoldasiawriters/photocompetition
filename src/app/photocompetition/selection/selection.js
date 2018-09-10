@@ -59,9 +59,7 @@
         ctrl.selectChanged = function () {
             fillCompetitionNames();
         };
-
-
-
+        
         ParametersService
             .getParameterByValue('Photo selection count per category')
             .then(function (param) {

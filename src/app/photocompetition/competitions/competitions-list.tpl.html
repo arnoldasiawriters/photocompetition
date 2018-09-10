@@ -25,20 +25,22 @@
                                     <thead>
                                         <tr>
                                             <th>Competition Name</th>
-                                            <th>Category</th>
-                                            <th>Period</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
+                                            <th>Upload Date</th>
+                                            <th>Selection Date</th>
+                                            <th>Voting Date</th>
                                             <th style="width: 100px;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr dir-paginate="competition in ctrl.competitions | itemsPerPage: 10 track by competition.id">
                                             <td>{{competition.name}}</td>
-                                            <td>{{competition.category.name}}</td>
-                                            <td>{{competition.period.name}}</td>
                                             <td>{{competition.startdate | date:'MM-dd-yyyy'}}</td>
-                                            <td>{{competition.enddate  | date:'MM-dd-yyyy'}}</td>
+                                            <td>{{competition.enddate | date:'MM-dd-yyyy'}}</td>
+                                            <td>{{competition.uploadenddate | date:'MM-dd-yyyy'}}</td>
+                                            <td>{{competition.selectionenddate | date:'MM-dd-yyyy'}}</td>
+                                            <td>{{competition.votingenddate | date:'MM-dd-yyyy'}}</td>
                                             <td><a class="btn btn-xs btn-success" ng-click="ctrl.editCompetition(competition);">
                                                     Edit</a>
                                                 <a class="btn btn-xs btn-success" ng-click="ctrl.deleteCompetition(competition);">

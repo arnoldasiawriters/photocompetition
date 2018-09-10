@@ -10,17 +10,24 @@
                 </div>
                 <form method="post" name="frm" novalidate>
                     <div class="modal-body">
+                        <div class="form-group ">
+                            <label class="control-label requiredField">
+                                Competition Name:<span class="asteriskField">*</span>
+                            </label>
+                            <select ng-model="ctrl.category.competition" ng-options="x.name for x in category.competitions track by x.id" ng-init="ctrl.category.competition = category.competitions[0]" class="select form-control">
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label class="control-label requiredField">
-                                Category Name:<span class="asteriskField">*</span>
+                                Photo Category Name:<span class="asteriskField">*</span>
                             </label>
-                            <input class="form-control" type="text" ng-model="ctrl.categoryName" required autofocus>
+                            <input class="form-control" type="text" ng-model="ctrl.category.name" required autofocus>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
                             <div>
-                                <button class="btn btn-success " name="submit" type="submit" ng-click="submit(frm, ctrl.categoryName)" ng-disabled="!frm.$valid">
+                                <button class="btn btn-success " name="submit" type="submit" ng-click="submit(frm, ctrl.category)" ng-disabled="!frm.$valid">
                                     Save and close
                                 </button>
                                 <button class="btn btn-warning " name="submit" type="button" ng-click="cancel()">

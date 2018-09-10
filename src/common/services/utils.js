@@ -19,7 +19,7 @@
             { menuId: 2, title: "Selection", class: "", url: "#addSelection", icon: "fa-search" },
             { menuId: 3, title: "Voting", class: "", url: "#addVoting", icon: "fa-edit" },
             { menuId: 4, title: "Results", class: "", url: "#addResults", icon: "fa-align-justify" },
-            { menuId: 5, title: "Administration", class: "", url: "#listCategories", icon: "fa-wrench" }];
+            { menuId: 5, title: "Administration", class: "", url: "#listCompetitions", icon: "fa-wrench" }];
             _.set(_.find(menuitems, { menuId: activeMenu }), "class", "active");
             return menuitems;
         };
@@ -27,8 +27,8 @@
         utils.getTemplateURL = function (ListName) {
             var templateUrl = "";
             switch (ListName) {
-                case "categories":
-                    templateUrl = "http://localhost:4000/categories";
+                case "photocategories":
+                    templateUrl = "http://localhost:4000/photocategories";
                     break;
                 case "periods":
                     templateUrl = "http://localhost:4000/periods";
@@ -69,7 +69,7 @@
             return items;
         };
 
-        utils.updateListItem = function (ListName, itemId, bodyContent) {
+        utils.updateListItem = function (ListName, itemId, bodyContent) {            
             var items = $http({
                 url: utils.getTemplateURL(ListName) + "/" + itemId,
                 method: "PUT",
