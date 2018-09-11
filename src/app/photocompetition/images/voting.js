@@ -84,7 +84,9 @@
             ImagesService
                 .submitVotes(ctrl.votingImages, ctrl.currentUser, ctrl.category)
                 .then(function (votingImages) {
+                    ctrl.voteSubmitted = true;
                     ctrl.votingImages = votingImages;
+                    ctrl.votingNotification = "Voted " + ctrl.voteCount + " out of " + ctrl.maxVoteCount + " (Maximum Votes) - You have already submitted your vote for the category!";
                     growl.success('Photo Votes Submitted Successfully!', {
                         referenceId: 1
                     });
@@ -117,8 +119,8 @@
                                 o.imageClass = "";
                             } else {
                                 o.imageClass = "selectImage";
+                                ctrl.voteSubmitted = true;
                             }
-                            ctrl.voteSubmitted = true;
                         });
                         ctrl.voteCount = _.filter(ctrl.votingImages, function (o) {
                             if (o.imagevoted == true) return o

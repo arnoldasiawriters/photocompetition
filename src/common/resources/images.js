@@ -226,10 +226,13 @@
                                 };
                                 imagevote.voteby = { id: currentUser.id, name: currentUser.name };
                                 imagevote.votedate = new Date();
-                                v.VoteCount += 1;
+                                v.voteCount += 1;
+                                delete v.imagevoted;
                                 UtilitiesService
                                     .createListItem("imagevotes", imagevote)
                                     .then(function (savedVote) {
+                                        console.log(v.id, v);
+                                        
                                         UtilitiesService
                                             .updateListItem("images", v.id, v)
                                             .then(function (response) {
