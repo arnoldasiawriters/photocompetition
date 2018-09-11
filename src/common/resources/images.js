@@ -232,7 +232,7 @@
                                     .createListItem("imagevotes", imagevote)
                                     .then(function (savedVote) {
                                         console.log(v.id, v);
-                                        
+
                                         UtilitiesService
                                             .updateListItem("images", v.id, v)
                                             .then(function (response) {
@@ -252,6 +252,26 @@
                 .catch(function (error) {
                     deferred.reject(error);
                 });
+            return deferred.promise;
+        };
+
+        /**
+         * Function that gets images of a particular category
+         * @param  {} category
+         */
+        svc.getImagesByCategory = function (category) {
+            var deferred = $q.defer();
+            svc.fetchAll()
+                .then(function (images) {
+                    var catImages = _.filter(images, function (o) {
+                        return o.category.id == category.id;
+                    });
+                    deferred.resolve(catImages);
+                })
+                .catch(function (error) {
+                    deferred.reject(error);
+                });
+
             return deferred.promise;
         };
     }

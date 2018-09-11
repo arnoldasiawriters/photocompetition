@@ -1,0 +1,71 @@
+<div class="margin-top">
+    <main-menu menu-items="ctrl.menuItems"></main-menu>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="panel panel-info">
+                <div class="panel-heading margin-top">
+                    <page-title page-title="ctrl.pageTitle"></page-title>
+                </div>
+                <div class="panel-body">
+                    <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+                    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+                    <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+                    <div class="bootstrap-iso">
+                        <div class="container-fluid">
+                            <form method="post">
+                                <div class="form-group ">
+                                    <label class="control-label requiredField">
+                                        Competition Name:<span class="asteriskField">*</span>
+                                    </label>
+                                    <select ng-model="ctrl.competition" ng-change="ctrl.competitionChanged();" ng-options="x.name for x in ctrl.competitions track by x.id"
+                                        class="select form-control" required>
+                                    </select>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <div class="titleHeader">PHOTO CATEGORIES</div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div ng-repeat="category in ctrl.categories track by category.id">
+                                                    <div class="btn btn-info btn-block btn-flat margin-top" ng-click="ctrl.loadCategoryResults(category);" ng-class="category.active">
+                                                        {{category.name | uppercase}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="row" ng-if="ctrl.images.length > 0">
+                                            <div class="form-group">
+                                                <flex-slider slider-id="slider" flex-slide="image in ctrl.images track by $index" animation="fade" animation-loop="false"
+                                                    sync="#carousel" slideshow="false" control-nav="false" init-delay="100">
+                                                    <li>
+                                                        <img ng-src="{{image.image}}">
+                                                    </li>
+                                                </flex-slider>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-if="ctrl.images.length > 0">
+                                            <div class="form-group">
+                                                <flex-slider slider-id="carousel" flex-slide="image in ctrl.images track by $index" animation="slide" animation-loop="false"
+                                                    item-width="200" item-margin="5" as-nav-for="#slider" slideshow="false" control-nav="false"
+                                                    keyboard="true">
+                                                    <li>
+                                                        <img ng-src="{{image.thumbnail}}">
+                                                    </li>
+                                                </flex-slider>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

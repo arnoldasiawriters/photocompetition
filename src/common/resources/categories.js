@@ -137,5 +137,26 @@
                 });
             return deferred.promise;
         };
+
+        /**
+         * Function that gets categories of a given competition
+         * @param  {} competition
+         */
+        svc.getCategoriesByCompetition = function (competition) {
+            var deferred = $q.defer();
+            if(competition.id){
+                svc.fetchAll()
+                .then(function (categories) {
+                    var cats = _.filter(categories, function (o) {
+                        return o.competition.id == competition.id;
+                    });
+                    deferred.resolve(cats);
+                })
+                .catch(function (error) {
+                    deferred.reject(error);
+                });
+            }
+            return deferred.promise;
+        };
     }
 })();

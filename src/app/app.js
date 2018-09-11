@@ -26,8 +26,8 @@
                 controller: 'VotingController as ctrl'
             })
             .when('/addResults', {
-                templateUrl: 'app/photocompetition/results/results-add.tpl.html',
-                controller: 'ResultsController'
+                templateUrl: 'app/photocompetition/images/images-results.tpl.html',
+                controller: 'ResultsController as ctrl'
             })
 
             // Routes handling categories
