@@ -25,28 +25,7 @@
         };
 
         utils.getTemplateURL = function (ListName) {
-            var templateUrl = "";
-            switch (ListName) {
-                case "photocategories":
-                    templateUrl = "http://localhost:4000/photocategories";
-                    break;
-                case "periods":
-                    templateUrl = "http://localhost:4000/periods";
-                    break;
-                case "competitions":
-                    templateUrl = "http://localhost:4000/competitions";
-                    break;
-                case "images":
-                    templateUrl = "http://localhost:4000/images";
-                    break;
-                case "parameters":
-                    templateUrl = "http://localhost:4000/parameters";
-                    break;
-                default:
-                    templateUrl = "";
-                    break;
-            }
-            return templateUrl;
+            return "http://localhost:4000/" + ListName;
         };
 
         utils.getListItems = function (ListName) {
@@ -69,7 +48,7 @@
             return items;
         };
 
-        utils.updateListItem = function (ListName, itemId, bodyContent) {            
+        utils.updateListItem = function (ListName, itemId, bodyContent) {
             var items = $http({
                 url: utils.getTemplateURL(ListName) + "/" + itemId,
                 method: "PUT",

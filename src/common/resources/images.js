@@ -9,6 +9,7 @@
     function ImagesService($q, UtilitiesService) {
         var svc = this;
         var imagesList = null;
+        var imagesVotedList = null;
         svc.error = { message: "" };
 
         /**
@@ -35,6 +36,41 @@
                         imagesList.push(image);
                     });
                     deferred.resolve(imagesList);
+                })
+                .catch(function (error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+
+        /**
+         * Function for fetching image votes for user for category
+         * @param  {} category
+         * @param  {} user
+         */
+        svc.fetchVotesByUserForCategory = function (category, user) {
+            imagesVotedList = [];
+            var deferred = $q.defer();
+            UtilitiesService
+                .getListItems("imagevotes")
+                .then(function (imagevotes) {
+                    imagevotes = imagevotes.data;
+                    _.forEach(imagevotes, function (v, k) {
+                        if (v.image.category.id == category.id && v.voteby.id == user.id) {
+                            var imagevote = {};
+                            imagevote.id = v.id;
+                            imagevote.image = {
+                                "id": v.image.id, "category": {
+                                    "id": v.image.category.id,
+                                    "name": v.image.category.name
+                                }
+                            };
+                            imagevote.voteby = { "id": v.voteby.id, "name": v.voteby.name }
+                            imagevote.votedate = new Date(v.votedate);
+                            imagesVotedList.push(imagevote);
+                        }
+                    });
+                    deferred.resolve(imagesVotedList);
                 })
                 .catch(function (error) {
                     deferred.reject(error);
@@ -92,6 +128,9 @@
             return deferred.promise;
         };
 
+        /**
+        * Function for submitting selected images for voting for the competition category. It takes @param  {} selectedImages
+        */
         svc.submitSelection = function (selectedImages) {
             var deferred = $q.defer();
             _.forEach(selectedImages, function (o) {
@@ -108,7 +147,6 @@
                         deferred.reject(error);
                     });
             });
-            deferred.resolve(selectedImages, imagesList);
             deferred.resolve(imagesList);
             return deferred.promise;
         };
@@ -125,6 +163,90 @@
                     });
                     deferred.resolve(votingImages);
                 }).catch(function (error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+
+        /**
+         * Function for returning selected images patching the parameter imagevoted to identify if image is voted.
+         * @param  {} category
+         * @param  {} user
+         */
+        svc.getVotingImagesWithVoteData = function (category, user) {
+            var deferred = $q.defer();
+            svc.fetchVotesByUserForCategory(category, user)
+                .then(function (votedimages) {
+                    svc.getVotingImages(category)
+                        .then(function (votingimages) {
+                            _.forEach(votingimages, function (o) {
+                                var imageVoted = _.some(votedimages, function (c) {
+                                    return c.image.id === o.id;
+                                });
+                                if (imageVoted) {
+                                    o.imagevoted = true;
+                                } else {
+                                    o.imagevoted = false;
+                                }
+                            });
+                            deferred.resolve(votingimages);
+                        })
+                        .catch(function (error) {
+                            deferred.reject(error);
+                        });
+                })
+                .catch(function (error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+
+        /**
+         * Function for submitting voted images
+         * @param  {} votedImages
+         * @param  {} currentUser
+         */
+        svc.submitVotes = function (votedImages, currentUser, category) {
+            var deferred = $q.defer();
+            svc.fetchVotesByUserForCategory(category, currentUser)
+                .then(function (imageVotes) {
+                    if (imageVotes.length > 0) {
+                        svc.error.message = "You have already submitted your voted for the category!";
+                        deferred.reject(svc.error);
+                    } else {
+                        _.forEach(votedImages, function (v, k) {
+                            if (v.imagevoted) {
+                                var imagevote = {};
+                                imagevote.image = {
+                                    id: v.id,
+                                    category: {
+                                        id: v.category.id,
+                                        name: v.category.name
+                                    }
+                                };
+                                imagevote.voteby = { id: currentUser.id, name: currentUser.name };
+                                imagevote.votedate = new Date();
+                                v.VoteCount += 1;
+                                UtilitiesService
+                                    .createListItem("imagevotes", imagevote)
+                                    .then(function (savedVote) {
+                                        UtilitiesService
+                                            .updateListItem("images", v.id, v)
+                                            .then(function (response) {
+                                            })
+                                            .catch(function (error) {
+                                                deferred.reject(error);
+                                            });
+                                    })
+                                    .catch(function (error) {
+                                        deferred.reject(error);
+                                    });
+                            }
+                        });
+                        deferred.resolve(votedImages);
+                    }
+                })
+                .catch(function (error) {
                     deferred.reject(error);
                 });
             return deferred.promise;
