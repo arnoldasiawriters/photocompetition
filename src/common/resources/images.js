@@ -231,8 +231,6 @@
                                 UtilitiesService
                                     .createListItem("imagevotes", imagevote)
                                     .then(function (savedVote) {
-                                        console.log(v.id, v);
-
                                         UtilitiesService
                                             .updateListItem("images", v.id, v)
                                             .then(function (response) {

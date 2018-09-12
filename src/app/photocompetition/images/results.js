@@ -6,9 +6,9 @@
         .controller('ResultsController', ResultsController);
 
     ResultsController.$inject = ['UtilitiesService', 'growl', 'CompetitionsService', 'CategoriesService',
-        'ImagesService', '$q'];
+        'ImagesService', 'ParametersService', '$q'];
     function ResultsController(UtilitiesService, growl, CompetitionsService, CategoriesService,
-        ImagesService, $q) {
+        ImagesService, ParametersService, $q) {
         var ctrl = this;
         ctrl.menuItems = UtilitiesService.menuItems(4);
         ctrl.pageTitle = "BARAZA PHOTO COMPETITION - RESULTS";
@@ -55,16 +55,40 @@
             clearButtonClass(ctrl.categories)
             category.active = "active";
             if (category) {
-                ImagesService.getImagesByCategory(category)
-                .then(function (images) {
-                    ctrl.images = images;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                    growl.error(error.message, {
-                        referenceId: 1
+                var promises = [];
+                promises.push(ImagesService.getImagesByCategory(category));
+                promises.push(ParametersService.getParameterByValue("Photo results count per category"));
+
+                $q.all(promises)
+                    .then(function (promiseResults) {
+                        var images = promiseResults[0];
+                        var resultsNumber = promiseResults[1].value;
+                        images = _.orderBy(images, ['voteCount'], ['desc']);
+                        var prevo = {};
+                        var curro = {};
+                        var position = 0;
+                        for (let i = 0; i < images.length; i++) {
+                            if (i > 0) {
+                                prevo = images[i - 1];
+                            }
+                            curro = images[i];
+                            if (curro.voteCount == prevo.voteCount) {
+                                position = position;
+                                resultsNumber++;
+                            } else {
+                                position = position + 1;
+                            }
+                            curro.position = position;
+                        }
+                        images.length = resultsNumber;
+                        ctrl.images = images;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        growl.error(error.message, {
+                            referenceId: 1
+                        });
                     });
-                });
             }
         };
 

@@ -22,15 +22,19 @@
                 .then(function (competitions) {
                     competitions = competitions.data;
                     _.forEach(competitions, function (v, k) {
-                        var competition = {};
-                        competition.id = v.id;
-                        competition.name = v.Name;
-                        competition.startdate = new Date(v.StartDate);
-                        competition.enddate = new Date(v.EndDate);
-                        competition.uploadenddate = new Date(v.EndofUploadDate);
-                        competition.selectionenddate = new Date(v.EndofSelectionDate);
-                        competition.votingenddate = new Date(v.EndofVotingDate);
-                        competitionsList.push(competition);
+                        // var today = new Date();
+                        // var endDate = new Date(v.EndDate);
+                        // if(endDate >= today) {
+                            var competition = {};
+                            competition.id = v.id;
+                            competition.name = v.Name;
+                            competition.startdate = new Date(v.StartDate);
+                            competition.enddate = new Date(v.EndDate);
+                            competition.uploadenddate = new Date(v.EndofUploadDate);
+                            competition.selectionenddate = new Date(v.EndofSelectionDate);
+                            competition.votingenddate = new Date(v.EndofVotingDate);
+                            competitionsList.push(competition);
+                        // }
                     });
                     deferred.resolve(competitionsList);
                 })

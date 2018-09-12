@@ -55,6 +55,7 @@
                                                     keyboard="true">
                                                     <li>
                                                         <img ng-src="{{image.thumbnail}}">
+                                                        <div ng-if="image.thumbnail" class="positionDisplay">Position {{image.position}} - ({{image.voteCount}} Votes)</div>
                                                     </li>
                                                 </flex-slider>
                                             </div>
