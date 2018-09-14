@@ -50,13 +50,15 @@
                                 <div class="form-group">
                                     <label class="btn btn-info btn-block btn-flat">
                                         Click here to Select Photo
-                                        <input ng-model="ctrl.photo.photo" custom-on-change="ctrl.uploadedPhoto" class="hide" id="selectphotos" type="file" accept="image/*"
-                                        />
+                                        <input ng-model="file" 
+                                               class="hide" id="selectphotos" type="file" accept="image/*"
+                                               name="file" base-sixty-four-input required onload="onLoad" 
+                                               maxsize="500"/>
                                     </label>
                                 </div>
 
                                 <div class="form-group centerImage">
-                                    <img ng-src="{{uploadedPhotoHref}}" id="uploadedPhotoHref">
+                                    <img ng-src="data:image/png;base64,{{file.base64}}" id="uploadedPhotoHref">
                                 </div>
 
                                 <div class="form-group">

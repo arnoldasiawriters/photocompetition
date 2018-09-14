@@ -39,19 +39,39 @@
             fillCategoryNames();
         };
 
-        ctrl.uploadedPhoto = function (event) {
-            var imageFile = event.target.files[0];
-            var reader = new FileReader();
-            reader.onload = ctrl.imageIsLoaded;
-            reader.readAsDataURL(imageFile);
-        };
+        // ctrl.uploadedPhoto = function (event) {
+        //     var imageFile = event.target.files[0];
+        //     var reader = new FileReader();
+        //     reader.onload = ctrl.imageIsLoaded;
+        //     reader.readAsDataURL(imageFile);
+        // };
 
-        ctrl.imageIsLoaded = function (e) {
-            $scope.uploadedPhotoHref = e.target.result;
+        // ctrl.imageIsLoaded = function (e) {
+        //     $scope.uploadedPhotoHref = e.target.result;
+        //     $scope.$apply();
+        // };
+        // $scope.file_changed = function (element) {
+        //     console.log('Here');
+        //     // var photofile = element.files[0];
+        //     // var reader = new FileReader();
+        //     // reader.onload = function (e) {
+        //     //     $scope.$apply(function () {
+        //     //         $scope.prev_img = e.target.result;
+        //     //     });
+        //     // };
+        //     // reader.readAsDataURL(photofile);
+        // };
+
+        
+        
+        $scope.onLoad = function (e, reader, file, fileList, fileOjects, fileObj) {
+            $scope.uploadedPhotoHref = $scope.file.base64;
             $scope.$apply();
         };
 
         ctrl.addImage = function () {
+            //var image = $scope.file;
+            ctrl.photo.photo = $scope.file.base64;
             ImagesService
                 .addImage(ctrl.photo)
                 .then(function (images) {
