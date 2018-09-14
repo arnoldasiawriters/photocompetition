@@ -1,0 +1,216 @@
+{
+  "parameters": [
+    {
+      "id": 1,
+      "title": "Photo upload count per user per category",
+      "value": 1
+    },
+    {
+      "id": 2,
+      "title": "Photo selection count per category",
+      "value": 3
+    },
+    {
+      "id": 3,
+      "title": "Photo user vote count per category",
+      "value": 1
+    },
+    {
+      "id": 4,
+      "title": "Photo results count per category",
+      "value": 5
+    }
+  ],
+  "images": [
+    {
+      "id": 1,
+      "description": "Photo Description",
+      "image": "images/selection/images/Finance.JPG",
+      "thumbnail": "images/selection/thumbnails/Finance_t.JPG",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 3,
+      "competition": {
+        "id": 1,
+        "name": "Competition 1"
+      },
+      "category": {
+        "id": 1,
+        "name": "Category 1"
+      }
+    },
+    {
+      "id": 2,
+      "description": "Photo Description",
+      "image": "images/selection/images/Laboratories.JPG",
+      "thumbnail": "images/selection/thumbnails/Laboratories_t.JPG",
+      "imageClass": "selectImage",
+      "selected": true,
+      "voteCount": 10,
+      "competition": {
+        "id": 1,
+        "name": "Competition 1"
+      },
+      "category": {
+        "id": 1,
+        "name": "Category 1"
+      }
+    },
+    {
+      "id": 3,
+      "description": "Photo Description",
+      "image": "images/selection/images/MainGate.JPG",
+      "thumbnail": "images/selection/thumbnails/MainGate_t.JPG",
+      "imageClass": "selectImage",
+      "selected": true,
+      "voteCount": 10,
+      "competition": {
+        "id": 1,
+        "name": "Competition 1"
+      },
+      "category": {
+        "id": 1,
+        "name": "Category 1"
+      }
+    },
+    {
+      "id": 4,
+      "description": "Photo Description",
+      "image": "images/selection/images/Reception.JPG",
+      "thumbnail": "images/selection/thumbnails/Reception_t.JPG",
+      "imageClass": "selectImage",
+      "selected": true,
+      "voteCount": 10,
+      "competition": {
+        "id": 1,
+        "name": "Competition 1"
+      },
+      "category": {
+        "id": 1,
+        "name": "Category 1"
+      }
+    },
+    {
+      "id": 5,
+      "description": "Photo Description",
+      "image": "images/selection/images/Finance.JPG",
+      "thumbnail": "images/selection/thumbnails/Finance_t.JPG",
+      "imageClass": "selectImage",
+      "selected": true,
+      "voteCount": 9,
+      "competition": {
+        "id": 2,
+        "name": "Competition 2"
+      },
+      "category": {
+        "id": 5,
+        "name": "Category 1 Competition 2"
+      }
+    },
+    {
+      "image": "ssssssssssssssssssssssssssssssssssssssssssssssssss",
+      "thumbnail": "ssssssssssssssssssssssssssssssssssssssssssssssssss",
+      "description": "ssssssssssssssssssssssssssssssssssssssssssssssssss",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competition": {
+        "id": 1,
+        "name": "Competition 1"
+      },
+      "category": {
+        "id": 1,
+        "name": "Category 1"
+      },
+      "id": 6
+    },
+    {
+      "image": "ddddddddddddddddd",
+      "thumbnail": "ddddddddddddddddddddd",
+      "description": "ddddddddddddddddd",
+      "imageClass": "",
+      "selected": false,
+      "voteCount": 0,
+      "competition": {
+        "id": 1,
+        "name": "Competition 1"
+      },
+      "category": {
+        "id": 1,
+        "name": "Category 1"
+      },
+      "id": 7
+    }
+  ],
+  "photocategories": [
+    {
+      "name": "Category 1",
+      "competition": {
+        "id": 1,
+        "name": "Competition 1"
+      },
+      "id": 1
+    },
+    {
+      "name": "Category 2",
+      "competition": {
+        "id": 1,
+        "name": "Competition 1"
+      },
+      "id": 2
+    },
+    {
+      "name": "Category 1 Competition 2",
+      "competition": {
+        "id": 2,
+        "name": "Competition 2"
+      },
+      "id": 5
+    },
+    {
+      "name": "Category 2 Competition 2",
+      "competition": {
+        "id": 2,
+        "name": "Competition 2"
+      },
+      "id": 6
+    }
+  ],
+  "competitions": [
+    {
+      "Name": "Competition 1",
+      "StartDate": "2018-08-31T21:00:00.000Z",
+      "EndDate": "2018-09-29T21:00:00.000Z",
+      "EndofUploadDate": "2018-09-06T21:00:00.000Z",
+      "EndofSelectionDate": "2018-09-13T21:00:00.000Z",
+      "EndofVotingDate": "2018-09-20T21:00:00.000Z",
+      "id": 1
+    },
+    {
+      "Name": "Competition 2",
+      "StartDate": "2018-06-01T21:00:00.000Z",
+      "EndDate": "2018-06-30T21:00:00.000Z",
+      "EndofUploadDate": "2018-06-11T21:00:00.000Z",
+      "EndofSelectionDate": "2018-06-18T21:00:00.000Z",
+      "EndofVotingDate": "2018-06-25T21:00:00.000Z",
+      "id": 2
+    }
+  ],
+  "imagevotes": [
+    {
+      "image": {
+        "id": 3,
+        "category": {
+          "id": 1,
+          "name": "Category 1"
+        }
+      },
+      "voteby": {
+        "id": 1,
+        "name": "Arnold Shangala Mwadwaa"
+      },
+      "votedate": "2018-09-11T11:08:16.925Z",
+      "id": 1
+    }
+  ]
+}
